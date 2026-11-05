@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "id": "H49",
+  "title": "Longest streak",
+  "category": "edit",
+  "language": "js",
+  "stack": "React + Vite (JavaScript)",
+  "base": {
+    "from": "G1"
+  },
+  "first_batch": false,
+  "turns": [
+    "id like to see the longest streak ever for each habit next to the current one. put a longestStreak function in streak.js with its own tests, and dont break any of the tests that are already there"
+  ],
+  "expected_facts": [
+    {
+      "id": "longest-streak",
+      "description": "Show longest streak per habit",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "longest-streak"
+      }
+    },
+    {
+      "id": "tests-longest",
+      "description": "Add tests for longestStreak",
+      "polarity": "must",
+      "kind": "require.tests_added",
+      "params": {
+        "target_hint": "longestStreak"
+      }
+    },
+    {
+      "id": "tests-pass",
+      "description": "Don't break existing tests",
+      "polarity": "must",
+      "kind": "constraint.tests_pass",
+      "params": {}
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout2 (constraint-focused)"
+}

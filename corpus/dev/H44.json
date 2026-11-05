@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "id": "H44",
+  "title": "Rename amount to total",
+  "category": "edit",
+  "language": "ts",
+  "stack": "TypeScript + Express + better-sqlite3",
+  "base": {
+    "from": "G2"
+  },
+  "first_batch": false,
+  "turns": [
+    "Rename the `amount` field to `total` across the API, so POST /expenses takes `total` and the responses return `total` too. Update the tests to match. Don't touch settle.ts though, the maths in there is fine and I don't want it churned."
+  ],
+  "expected_facts": [
+    {
+      "id": "rename-amount",
+      "description": "Rename amount to total",
+      "polarity": "must",
+      "kind": "symbol.rename",
+      "params": {
+        "old": "amount",
+        "new": "total"
+      }
+    },
+    {
+      "id": "settle-untouched",
+      "description": "Don't modify settle.ts",
+      "polarity": "must_not",
+      "kind": "target.unchanged",
+      "params": {
+        "target_hint": "settle.ts"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout2 (constraint-focused) | moved to dev: its real session's false alarms informed lexicon v3"
+}

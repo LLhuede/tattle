@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "id": "H21",
+  "title": "Discord reminder bot",
+  "category": "greenfield",
+  "language": "ts",
+  "stack": "TypeScript + discord.js + SQLite",
+  "base": null,
+  "first_batch": false,
+  "turns": [
+    "build a discord bot in typescript where ppl can type /remind and it pings them later. reminders gotta be saved in sqlite so if the bot restarts they dont get lost. each user can only have 5 reminders at once, and the shortest reminder allowed is 1 minute. it should DM the person, NOT post in the channel"
+  ],
+  "expected_facts": [
+    {
+      "id": "stack-ts-sqlite",
+      "description": "TypeScript and SQLite",
+      "polarity": "must",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "typescript",
+          "sqlite"
+        ]
+      }
+    },
+    {
+      "id": "sym-reminder",
+      "description": "Has reminders",
+      "polarity": "must",
+      "kind": "symbols",
+      "params": {
+        "value": [
+          "reminder"
+        ]
+      }
+    },
+    {
+      "id": "limit-per-user",
+      "description": "Reminder limit is per user",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": "user",
+        "unit": "per"
+      }
+    },
+    {
+      "id": "min-1-min",
+      "description": "Shortest reminder is 1 minute",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 1,
+        "unit": "minute"
+      }
+    },
+    {
+      "id": "dm",
+      "description": "Reminders are sent as a direct message",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "direct-message"
+      }
+    },
+    {
+      "id": "no-channel-post",
+      "description": "Does not post reminders in the channel",
+      "polarity": "must_not",
+      "kind": "feature",
+      "params": {
+        "value": "channel-post"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout v2"
+}

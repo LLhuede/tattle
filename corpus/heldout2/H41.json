@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "id": "H41",
+  "title": "Per-person balance endpoint",
+  "category": "edit",
+  "language": "ts",
+  "stack": "TypeScript + Express + better-sqlite3",
+  "base": {
+    "from": "G2"
+  },
+  "first_batch": false,
+  "turns": [
+    "can you add a GET /people/:id/balance endpoint that just returns that one persons balance (same number settle-up gives). dont add any new packages for this and make sure the existing tests still pass after"
+  ],
+  "expected_facts": [
+    {
+      "id": "balance-route",
+      "description": "New GET /people/:id/balance route returning one person's balance",
+      "polarity": "must",
+      "kind": "route.exists",
+      "params": {
+        "target_hint": "balance"
+      }
+    },
+    {
+      "id": "no-new-deps",
+      "description": "No new dependencies",
+      "polarity": "must",
+      "kind": "constraint.deps_unchanged",
+      "params": {}
+    },
+    {
+      "id": "tests-pass",
+      "description": "Existing tests still pass",
+      "polarity": "must",
+      "kind": "constraint.tests_pass",
+      "params": {}
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout2 (constraint-focused)"
+}

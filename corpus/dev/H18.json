@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "id": "H18",
+  "title": "Notes app, storage switch",
+  "category": "trap",
+  "language": "ts",
+  "stack": "react+express+sqlite",
+  "base": null,
+  "first_batch": false,
+  "turns": [
+    "make a markdown notes app in react, notes saved in localstorage, super basic",
+    "wait actually i want it on my phone too. put the notes in sqlite behind a small express server instead of localstorage. and add tags to notes"
+  ],
+  "expected_facts": [
+    {
+      "id": "stack",
+      "description": "React, Express, SQLite",
+      "polarity": "must",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "react",
+          "express",
+          "sqlite"
+        ]
+      }
+    },
+    {
+      "id": "server",
+      "description": "Has a server",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "server"
+      }
+    },
+    {
+      "id": "no-browser",
+      "description": "Not stored in localStorage",
+      "polarity": "must_not",
+      "kind": "storage",
+      "params": {
+        "value": "browser"
+      }
+    },
+    {
+      "id": "symbols",
+      "description": "Notes and tags",
+      "polarity": "must",
+      "kind": "symbols",
+      "params": {
+        "value": [
+          "note",
+          "tag"
+        ]
+      }
+    }
+  ],
+  "couldnt_check": [
+    "super basic"
+  ],
+  "traps": [],
+  "notes": "dev set: written as held-out by a separate agent; used to build lexicon v2"
+}

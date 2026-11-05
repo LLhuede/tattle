@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "id": "H10",
+  "title": "Rename name to title",
+  "category": "edit",
+  "language": "ts",
+  "stack": "react+vite",
+  "base": {
+    "from": "G1"
+  },
+  "first_batch": false,
+  "turns": [
+    "rename the habit 'name' field to 'title' everywhere, but habits people already saved under the old key need to still load. dont touch streak.js"
+  ],
+  "expected_facts": [
+    {
+      "id": "rename",
+      "description": "name renamed to title",
+      "polarity": "must",
+      "kind": "symbol.rename",
+      "params": {
+        "old": "name",
+        "new": "title"
+      }
+    },
+    {
+      "id": "streak",
+      "description": "streak.js unchanged",
+      "polarity": "must_not",
+      "kind": "target.unchanged",
+      "params": {
+        "target_hint": "streak"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "dev set: written as held-out by a separate agent; used to build lexicon v2"
+}

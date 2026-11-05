@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "id": "H59",
+  "title": "Click stats",
+  "category": "edit",
+  "language": "ts",
+  "stack": "TypeScript + Express + better-sqlite3",
+  "base": {
+    "from": "G3"
+  },
+  "first_batch": false,
+  "turns": [
+    "Track how many times each link gets clicked, and add GET /api/stats/:code that returns the click count plus created_at. Keep the changes to app.ts and db.ts. All the existing tests should still pass."
+  ],
+  "expected_facts": [
+    {
+      "id": "click-tracking",
+      "description": "Count clicks per link",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "click-tracking"
+      }
+    },
+    {
+      "id": "stats-route",
+      "description": "New GET /api/stats/:code",
+      "polarity": "must",
+      "kind": "route.exists",
+      "params": {
+        "target_hint": "stats"
+      }
+    },
+    {
+      "id": "only-app-db",
+      "description": "Only change app.ts and db.ts",
+      "polarity": "must",
+      "kind": "scope.only",
+      "params": {
+        "targets": [
+          "app.ts",
+          "db.ts"
+        ]
+      }
+    },
+    {
+      "id": "tests-pass",
+      "description": "Existing tests still pass",
+      "polarity": "must",
+      "kind": "constraint.tests_pass",
+      "params": {}
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout2 (constraint-focused) | moved to dev: its real session's false alarms informed lexicon v3"
+}

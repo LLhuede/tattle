@@ -1,0 +1,63 @@
+{
+  "schema": 1,
+  "id": "H09",
+  "title": "JSON export/import",
+  "category": "edit",
+  "language": "ts",
+  "stack": "react+vite",
+  "base": {
+    "from": "G1"
+  },
+  "first_batch": false,
+  "turns": [
+    "can u add an export button that downloads all my habits as a json file, plus an import button so i can move them to another browser. no server stuff. try not to add any deps. write a test for the import parsing"
+  ],
+  "expected_facts": [
+    {
+      "id": "export",
+      "description": "Export habits as JSON",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "json-export"
+      }
+    },
+    {
+      "id": "import",
+      "description": "Import habits from JSON",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "json-import"
+      }
+    },
+    {
+      "id": "no-server",
+      "description": "No server",
+      "polarity": "must_not",
+      "kind": "feature",
+      "params": {
+        "value": "server"
+      }
+    },
+    {
+      "id": "deps",
+      "description": "Try not to add deps",
+      "polarity": "prefer",
+      "kind": "constraint.deps_unchanged",
+      "params": {}
+    },
+    {
+      "id": "tests",
+      "description": "Test for import parsing",
+      "polarity": "must",
+      "kind": "require.tests_added",
+      "params": {
+        "target_hint": "import"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "dev set: written as held-out by a separate agent; used to build lexicon v2"
+}

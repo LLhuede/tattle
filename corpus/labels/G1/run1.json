@@ -1,0 +1,50 @@
+{
+  "_help": "defects: findings cv must report. tolerated: accurate but harmless findings. hallucinated: the agent claimed something false. See docs/RECALL_REVIEW.md.",
+  "prompt_id": "G1",
+  "run": 1,
+  "labeller": "ai-review + oracle (see scripts/make_labels.py); checkable defects verified by the lead agent; no human labels yet",
+  "labelled_on": "2026-10-26",
+  "defects": [],
+  "tolerated": [],
+  "hallucinated": false,
+  "hallucination_severity": null,
+  "statically_checkable": false,
+  "hallucinations": [],
+  "outcome": null,
+  "reviewed": true,
+  "mutation_source": false,
+  "intent_facts": [
+    {
+      "description": "Uses React + Vite",
+      "fact_id": "stack",
+      "note": "",
+      "verdict": ""
+    },
+    {
+      "description": "No login / auth",
+      "fact_id": "no-auth",
+      "note": "",
+      "verdict": ""
+    },
+    {
+      "description": "Saves in the browser (localStorage / IndexedDB)",
+      "fact_id": "browser-storage",
+      "note": "",
+      "verdict": ""
+    },
+    {
+      "description": "No server or backend code",
+      "fact_id": "no-server",
+      "note": "",
+      "verdict": ""
+    },
+    {
+      "description": "Tests exist for the streak calculation",
+      "fact_id": "streak-tests",
+      "note": "",
+      "verdict": ""
+    }
+  ],
+  "would_accept": null,
+  "notes": ""
+}

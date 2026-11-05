@@ -1,0 +1,13 @@
+{
+  "name": "shared-expenses-reference",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "start": "node server/index.js"
+  },
+  "devDependencies": {
+    "vite": "5.4.11"
+  }
+}

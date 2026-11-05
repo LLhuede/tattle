@@ -1,0 +1,73 @@
+{
+  "_help": "Everyday batch 6 (2026-11-04): fresh sessions on the final build (test runs also recognised by their output). Adds a C project driven by a Makefile and a Ruby project with its own test script, so tests run through make and custom scripts. Continued projects from batch 5 (runner --seed <batch 5 out>). Mixed wording. Not traps. Runner: scripts/everyday.py.",
+  "lanes": {
+    "cstack": {
+      "setup": "empty",
+      "sessions": [
+        {"id": "X01", "model": null, "turns": ["Write a small C library for a growable integer stack (push, pop, peek, size, free) with a test program, and a Makefile where `make test` builds and runs the tests. Only the C standard library."]},
+        {"id": "X02", "model": "sonnet", "turns": ["pop on an empty stack should return an error code instead of crashing. add a test"]},
+        {"id": "X03", "model": "haiku", "turns": ["Add a make target that builds with -fsanitize=address and runs the tests."]},
+        {"id": "X04", "model": null, "turns": ["any memory leaks? check and fix"]},
+        {"id": "X05", "model": "sonnet", "turns": ["Explain how the growth strategy works and its cost."]}
+      ]
+    },
+    "rbtodo": {
+      "setup": "empty",
+      "sessions": [
+        {"id": "R01", "model": "sonnet", "turns": ["Create a tiny Ruby todo list library (add, complete, list pending) with minitest tests and a ./run-tests.sh script that runs them. Standard library only."]},
+        {"id": "R02", "model": null, "turns": ["add due dates and an overdue list. tests"]},
+        {"id": "R03", "model": "haiku", "turns": ["completing a todo twice should be fine, not an error. make sure"]},
+        {"id": "R04", "model": "sonnet", "turns": ["save and load the list from a YAML file", "run the tests"]},
+        {"id": "R05", "model": null, "turns": ["rename complete to finish everywhere"]}
+      ]
+    },
+    "trust": {
+      "setup": "copy-of-this-repo",
+      "sessions": [
+        {"id": "T61", "model": "haiku", "turns": ["How does cv know which test command a project uses? Short answer."]},
+        {"id": "T62", "model": null, "turns": ["Add a test for events::shows_runner_summary with RSpec's summary line ('3 examples, 0 failures') and make it pass."]},
+        {"id": "T63", "model": "sonnet", "turns": ["Run the checks crate tests and clippy and tell me if all is well."]},
+        {"id": "T64", "model": null, "turns": ["In docs/WINDOWS.md, add a short troubleshooting section for when the plugin seems silent on Windows. Only that file."]}
+      ]
+    },
+    "notes": {
+      "setup": "continue:notes",
+      "sessions": [
+        {"id": "N61", "model": null, "turns": ["export notes to markdown files, one per note"]},
+        {"id": "N62", "model": "haiku", "turns": ["add a --limit option to list"]},
+        {"id": "N63", "model": "sonnet", "turns": ["Pin notes so pinned ones always list first. Tests please."]},
+        {"id": "N64", "model": null, "turns": ["whats the slowest part when there are 10k notes? measure, dont change"]}
+      ]
+    },
+    "booking": {
+      "setup": "continue:booking",
+      "sessions": [
+        {"id": "E61", "model": "sonnet", "turns": ["add a GET /health endpoint that returns ok and the number of events"]},
+        {"id": "E62", "model": null, "turns": ["The tests take a while. Can you make them faster without dropping any?"]},
+        {"id": "E63", "model": "haiku", "turns": ["make the API key optional when API_KEY isn't set, for local dev"]}
+      ]
+    },
+    "gocount": {
+      "setup": "continue:gocount",
+      "sessions": [
+        {"id": "G61", "model": "sonnet", "turns": ["add a Makefile with build, test and lint targets, lint = go vet"]},
+        {"id": "G62", "model": null, "turns": ["run make test"]},
+        {"id": "G63", "model": "haiku", "turns": ["--top with N bigger than the number of words should just print all of them"]}
+      ]
+    },
+    "kanban": {
+      "setup": "continue:kanban",
+      "sessions": [
+        {"id": "K61", "model": null, "turns": ["cards should be reorderable within a column with up/down buttons. logic in board.js + tests"]},
+        {"id": "K62", "model": "sonnet", "turns": ["is localStorage the right choice here or should it be IndexedDB? opinion, no code"]}
+      ]
+    },
+    "pyinv": {
+      "setup": "continue:pyinv",
+      "sessions": [
+        {"id": "P61", "model": "haiku", "turns": ["add a units field (pcs, kg, m) per item, default pcs"]},
+        {"id": "P62", "model": null, "turns": ["Write a Makefile with a test target that runs the unittest suite, and use it to run the tests."]}
+      ]
+    }
+  }
+}

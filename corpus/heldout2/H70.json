@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "id": "H70",
+  "title": "Habit notes, scope widened",
+  "category": "edit",
+  "language": "js",
+  "stack": "React + Vite (JavaScript)",
+  "base": {
+    "from": "G1"
+  },
+  "first_batch": false,
+  "turns": [
+    "add a notes field to each habit. only change App.jsx",
+    "oh you can touch App.css too for styling it. and cap the notes at 200 chars"
+  ],
+  "expected_facts": [
+    {
+      "id": "habit-notes",
+      "description": "Notes field per habit",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "habit-notes"
+      }
+    },
+    {
+      "id": "scope",
+      "description": "Only App.jsx and App.css",
+      "polarity": "must",
+      "kind": "scope.only",
+      "params": {
+        "targets": [
+          "App.jsx",
+          "App.css"
+        ]
+      }
+    },
+    {
+      "id": "notes-max-200",
+      "description": "Notes at most 200 characters",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 200,
+        "unit": "characters"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout2 (constraint-focused). Turn 2 widens scope to include App.css"
+}

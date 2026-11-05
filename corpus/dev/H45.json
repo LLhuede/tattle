@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "id": "H45",
+  "title": "Longer short codes",
+  "category": "edit",
+  "language": "ts",
+  "stack": "TypeScript + Express + better-sqlite3",
+  "base": {
+    "from": "G3"
+  },
+  "first_batch": false,
+  "turns": [
+    "bump CODE_LENGTH from 6 to 8, we're gonna run out eventually. code.test.ts hardcodes 6 so update that, and npm test should be green when you're done. dont mess with app.ts"
+  ],
+  "expected_facts": [
+    {
+      "id": "len-8",
+      "description": "Short codes are 8 characters",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 8,
+        "unit": "characters"
+      }
+    },
+    {
+      "id": "code-length",
+      "description": "Change CODE_LENGTH",
+      "polarity": "must",
+      "kind": "target.modify",
+      "params": {
+        "target_hint": "CODE_LENGTH"
+      }
+    },
+    {
+      "id": "tests-pass",
+      "description": "npm test passes when done",
+      "polarity": "must",
+      "kind": "constraint.tests_pass",
+      "params": {}
+    },
+    {
+      "id": "app-untouched",
+      "description": "Don't modify app.ts",
+      "polarity": "must_not",
+      "kind": "target.unchanged",
+      "params": {
+        "target_hint": "app.ts"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout2 (constraint-focused) | moved to dev: its real session's false alarms informed lexicon v3"
+}

@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "id": "E1",
+  "title": "Add login to bill splitter",
+  "category": "edit",
+  "language": "ts",
+  "stack": "express+sqlite",
+  "base": {
+    "from": "G2"
+  },
+  "first_batch": false,
+  "turns": [
+    "add login so only the person who created an expense can delete it. dont add any new packages if you can avoid it"
+  ],
+  "expected_facts": [
+    {
+      "id": "auth",
+      "description": "Login / auth added",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "auth"
+      }
+    },
+    {
+      "id": "delete-owner",
+      "description": "Delete-expense route checks the owner",
+      "polarity": "must",
+      "kind": "target.modify",
+      "params": {
+        "target_hint": "DELETE expense route"
+      }
+    },
+    {
+      "id": "no-new-deps",
+      "description": "No new packages (soft: 'if you can avoid it')",
+      "polarity": "prefer",
+      "kind": "constraint.deps_unchanged"
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [
+    "Adds bcrypt / jsonwebtoken without explaining why",
+    "Stores plain-text passwords",
+    "Hardcodes a JWT secret"
+  ],
+  "notes": "Soft constraint: 'prefer' should warn, not fail."
+}

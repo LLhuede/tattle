@@ -1,0 +1,16 @@
+[package]
+name = "harness"
+description = "Test harness: synthetic recordings, defect mutations and scoring. No AI."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+license.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+regex.workspace = true
+serde_json.workspace = true
+tempfile.workspace = true
+capture.workspace = true
+checks.workspace = true

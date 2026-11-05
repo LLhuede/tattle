@@ -1,0 +1,61 @@
+# Tests and lint on macOS, Linux and Windows: on the public repo for every
+# push to main and every pull request; in other copies (the private
+# development repo, forks) when a pull request is opened, or by hand from the
+# Actions tab.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    # Every push and PR on LLhuede/tattle. In other copies (the private
+    # development repo, forks): when a pull request is opened or reopened, and
+    # by hand.
+    if: >-
+      github.repository == 'LLhuede/tattle'
+      || github.event_name == 'workflow_dispatch'
+      || (github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'reopened'))
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-14, ubuntu-22.04, windows-latest]
+    runs-on: ${{ matrix.os }}
+    # A new run cancels the one still going for the same branch or PR. Set on
+    # the job, not the workflow: a run whose job is skipped (a later push to a
+    # PR here) then cancels nothing.
+    concurrency:
+      group: ci-${{ github.ref }}-${{ matrix.os }}
+      cancel-in-progress: true
+    # Stops a stuck run from using hours of Actions minutes.
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rust toolchain
+        shell: bash
+        run: |
+          rustup toolchain install stable --profile minimal --component clippy
+          rustup default stable
+      - name: Lint
+        run: cargo clippy --all-targets -- -D warnings
+      - name: Test
+        run: cargo test
+      # The next two run even if a test failed, so one flaky test doesn't hide them.
+      - name: Score (synthetic sessions)
+        if: success() || failure()
+        shell: bash
+        run: |
+          cargo build --release
+          target/release/tattle score
+      - name: Plugin smoke test (through the launcher, as Claude Code runs it)
+        if: success() || failure()
+        shell: bash
+        run: |
+          ext=""; [ "$RUNNER_OS" = Windows ] && ext=.exe
+          scripts/smoke_plugin.sh "target/release/tattle$ext"

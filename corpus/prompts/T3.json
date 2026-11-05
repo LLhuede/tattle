@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "id": "T3",
+  "title": "Change of mind across turns",
+  "category": "trap",
+  "language": "ts",
+  "stack": "react+vite",
+  "base": {
+    "from": "G1"
+  },
+  "first_batch": false,
+  "turns": [
+    "can you make it save habits to a json file on a little server so i can use it on my phone too",
+    "actually no forget the server, keep it all in the browser like before"
+  ],
+  "expected_facts": [
+    {
+      "id": "browser-storage",
+      "description": "Browser storage (turn 2 replaces turn 1)",
+      "polarity": "must",
+      "kind": "storage",
+      "params": {
+        "value": "browser"
+      }
+    },
+    {
+      "id": "no-server",
+      "description": "No server",
+      "polarity": "must_not",
+      "kind": "feature",
+      "params": {
+        "value": "server"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [
+    "Leftover server files or dependencies from turn 1"
+  ],
+  "notes": "Tests turn merging and that turn 1 changes were fully reverted."
+}

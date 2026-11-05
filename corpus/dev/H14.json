@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "id": "H14",
+  "title": "Expense groups",
+  "category": "edit",
+  "language": "ts",
+  "stack": "express+sqlite",
+  "base": {
+    "from": "G2"
+  },
+  "first_batch": false,
+  "turns": [
+    "we need groups, like a trip or a share house, and every expense belongs to a group. settle up should work per group. keep using the sqlite db, dont move it to postgres or mongo or whatever. try not to change the existing endpoints too much. tests for per-group settle up pls"
+  ],
+  "expected_facts": [
+    {
+      "id": "symbols",
+      "description": "Group entity",
+      "polarity": "must",
+      "kind": "symbols",
+      "params": {
+        "value": [
+          "group"
+        ]
+      }
+    },
+    {
+      "id": "settle",
+      "description": "Settle up becomes per group",
+      "polarity": "must",
+      "kind": "target.modify",
+      "params": {
+        "target_hint": "settle"
+      }
+    },
+    {
+      "id": "sqlite",
+      "description": "Keep SQLite",
+      "polarity": "must",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "sqlite"
+        ]
+      }
+    },
+    {
+      "id": "no-other-db",
+      "description": "No Postgres or Mongo",
+      "polarity": "must_not",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "postgres",
+          "mongodb"
+        ]
+      }
+    },
+    {
+      "id": "tests",
+      "description": "Tests for per-group settle up",
+      "polarity": "must",
+      "kind": "require.tests_added",
+      "params": {
+        "target_hint": "settle"
+      }
+    }
+  ],
+  "couldnt_check": [
+    "try not to change the existing endpoints too much"
+  ],
+  "traps": [],
+  "notes": "dev set: written as held-out by a separate agent; used to build lexicon v2"
+}

@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "id": "H19",
+  "title": "Make it robust",
+  "category": "vague",
+  "language": "ts",
+  "stack": "express+sqlite",
+  "base": {
+    "from": "G2"
+  },
+  "first_batch": false,
+  "turns": [
+    "this feels kinda messy?? can u tidy it up and make it more robust or whatever. dont break anything"
+  ],
+  "expected_facts": [],
+  "couldnt_check": [
+    "feels kinda messy",
+    "tidy it up",
+    "make it more robust",
+    "dont break anything"
+  ],
+  "traps": [],
+  "notes": "dev set: written as held-out by a separate agent; used to build lexicon v2"
+}

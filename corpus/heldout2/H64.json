@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "id": "H64",
+  "title": "Pomodoro timer",
+  "category": "greenfield",
+  "language": "js",
+  "stack": "Plain HTML/CSS/JS",
+  "base": null,
+  "first_batch": false,
+  "turns": [
+    "pomodoro timer web app. plain html/css/js, no frameworks please. 25 min work then 5 min break, and keep a log of finished sessions in localstorage"
+  ],
+  "expected_facts": [
+    {
+      "id": "plain-web",
+      "description": "Plain HTML/CSS/JS",
+      "polarity": "must",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "html",
+          "css",
+          "javascript"
+        ]
+      }
+    },
+    {
+      "id": "no-framework",
+      "description": "No frameworks",
+      "polarity": "must_not",
+      "kind": "deps.framework",
+      "params": {}
+    },
+    {
+      "id": "work-25",
+      "description": "25 minute work period",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 25,
+        "unit": "minute"
+      }
+    },
+    {
+      "id": "break-5",
+      "description": "5 minute break",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 5,
+        "unit": "minute"
+      }
+    },
+    {
+      "id": "storage",
+      "description": "Sessions in localStorage",
+      "polarity": "must",
+      "kind": "storage",
+      "params": {
+        "value": "browser"
+      }
+    },
+    {
+      "id": "symbols",
+      "description": "Session entity",
+      "polarity": "must",
+      "kind": "symbols",
+      "params": {
+        "value": [
+          "session"
+        ]
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout2 (constraint-focused)"
+}

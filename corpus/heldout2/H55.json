@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "id": "H55",
+  "title": "API key on write routes",
+  "category": "edit",
+  "language": "ts",
+  "stack": "TypeScript + Express + better-sqlite3",
+  "base": {
+    "from": "G2"
+  },
+  "first_batch": false,
+  "turns": [
+    "put an api key check on the write routes - POST /people, POST /expenses and DELETE /expenses/:id. the key comes from an env var, GETs stay public. try not to add any deps for this one"
+  ],
+  "expected_facts": [
+    {
+      "id": "auth",
+      "description": "API key check on write routes",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "auth"
+      }
+    },
+    {
+      "id": "post-people",
+      "description": "Change POST /people",
+      "polarity": "must",
+      "kind": "target.modify",
+      "params": {
+        "target_hint": "people"
+      }
+    },
+    {
+      "id": "post-expenses",
+      "description": "Change POST /expenses and DELETE /expenses/:id",
+      "polarity": "must",
+      "kind": "target.modify",
+      "params": {
+        "target_hint": "expenses"
+      }
+    },
+    {
+      "id": "no-new-deps",
+      "description": "Try not to add dependencies",
+      "polarity": "prefer",
+      "kind": "constraint.deps_unchanged",
+      "params": {}
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout2 (constraint-focused). 'GETs stay public' has no matching kind"
+}

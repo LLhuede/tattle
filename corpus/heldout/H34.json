@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "id": "H34",
+  "title": "Custom short link aliases",
+  "category": "edit",
+  "language": "ts",
+  "stack": "TypeScript + Express + SQLite",
+  "base": {
+    "from": "G3"
+  },
+  "first_batch": false,
+  "turns": [
+    "let people pick a custom alias when they shorten something, so POST /api/shorten takes {url, alias}. aliases have to be between 3 and 20 chars, letters numbers and dashes only. if its already taken return 409. the random codes should stay exactly how they are now (6 chars). add tests"
+  ],
+  "expected_facts": [
+    {
+      "id": "alias",
+      "description": "Custom alias",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "custom-alias"
+      }
+    },
+    {
+      "id": "mod-shorten",
+      "description": "Shorten endpoint accepts alias",
+      "polarity": "must",
+      "kind": "target.modify",
+      "params": {
+        "target_hint": "shorten"
+      }
+    },
+    {
+      "id": "alias-min",
+      "description": "Alias at least 3 characters",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 3,
+        "unit": "characters"
+      }
+    },
+    {
+      "id": "alias-max",
+      "description": "Alias at most 20 characters",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 20,
+        "unit": "characters"
+      }
+    },
+    {
+      "id": "code-6",
+      "description": "Random codes stay 6 characters",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 6,
+        "unit": "characters"
+      }
+    },
+    {
+      "id": "code-unchanged",
+      "description": "Random code generation unchanged",
+      "polarity": "must_not",
+      "kind": "target.unchanged",
+      "params": {
+        "target_hint": "code"
+      }
+    },
+    {
+      "id": "tests",
+      "description": "Tests added",
+      "polarity": "must",
+      "kind": "require.tests_added",
+      "params": {
+        "target_hint": "alias"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout v2"
+}

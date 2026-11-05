@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "id": "H46",
+  "title": "Make it prettier",
+  "category": "vague",
+  "language": "js",
+  "stack": "React + Vite (JavaScript)",
+  "base": {
+    "from": "G1"
+  },
+  "first_batch": false,
+  "turns": [
+    "can u make it look nicer, its kinda ugly lol. maybe some colours per habit?? idk. oh and no new deps pls"
+  ],
+  "expected_facts": [
+    {
+      "id": "habit-colors",
+      "description": "Maybe a colour per habit",
+      "polarity": "prefer",
+      "kind": "feature",
+      "params": {
+        "value": "habit-colors"
+      }
+    },
+    {
+      "id": "no-new-deps",
+      "description": "No new dependencies (stated in passing)",
+      "polarity": "must",
+      "kind": "constraint.deps_unchanged",
+      "params": {}
+    }
+  ],
+  "couldnt_check": [
+    "look nicer",
+    "kinda ugly"
+  ],
+  "traps": [],
+  "notes": "heldout2 (constraint-focused)"
+}

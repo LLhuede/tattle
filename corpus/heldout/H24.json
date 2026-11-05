@@ -1,0 +1,88 @@
+{
+  "schema": 1,
+  "id": "H24",
+  "title": "Svelte quiz game",
+  "category": "greenfield",
+  "language": "ts",
+  "stack": "Svelte, no backend",
+  "base": null,
+  "first_batch": false,
+  "turns": [
+    "make a quiz game in svelte, single page no backend. 10 questions a round, each question gets a 15 second timer and if it runs out it counts as wrong. keep a high score in localstorage. questions can just be hardcoded in a json file for now. make it look fun and colourful!!"
+  ],
+  "expected_facts": [
+    {
+      "id": "stack-svelte",
+      "description": "Svelte",
+      "polarity": "must",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "svelte"
+        ]
+      }
+    },
+    {
+      "id": "no-server",
+      "description": "No backend",
+      "polarity": "must_not",
+      "kind": "feature",
+      "params": {
+        "value": "server"
+      }
+    },
+    {
+      "id": "timer-15s",
+      "description": "15 second timer per question",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 15,
+        "unit": "second"
+      }
+    },
+    {
+      "id": "timer",
+      "description": "Per-question timer",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "question-timer"
+      }
+    },
+    {
+      "id": "high-score",
+      "description": "High score",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "high-score"
+      }
+    },
+    {
+      "id": "storage-browser",
+      "description": "High score in localStorage",
+      "polarity": "must",
+      "kind": "storage",
+      "params": {
+        "value": "browser"
+      }
+    },
+    {
+      "id": "sym-question",
+      "description": "Questions",
+      "polarity": "must",
+      "kind": "symbols",
+      "params": {
+        "value": [
+          "question"
+        ]
+      }
+    }
+  ],
+  "couldnt_check": [
+    "look fun and colourful"
+  ],
+  "traps": [],
+  "notes": "heldout v2"
+}

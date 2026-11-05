@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "id": "H57",
+  "title": "Habits become routines",
+  "category": "edit",
+  "language": "js",
+  "stack": "React + Vite (JavaScript)",
+  "base": {
+    "from": "G1"
+  },
+  "first_batch": false,
+  "turns": [
+    "call them 'routines' instead of 'habits' everywhere in the UI. rename the habits state variable to routines while you're at it. but dont rename the localStorage key or everyones saved data vanishes"
+  ],
+  "expected_facts": [
+    {
+      "id": "rename-habits",
+      "description": "Rename habits to routines",
+      "polarity": "must",
+      "kind": "symbol.rename",
+      "params": {
+        "old": "habits",
+        "new": "routines"
+      }
+    },
+    {
+      "id": "storage-key",
+      "description": "Don't rename the localStorage key",
+      "polarity": "must_not",
+      "kind": "target.unchanged",
+      "params": {
+        "target_hint": "STORAGE_KEY"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout2 (constraint-focused) | moved to dev: its real session's false alarms informed lexicon v3"
+}

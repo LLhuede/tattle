@@ -1,0 +1,26 @@
+{
+  "_help": "defects: findings cv must report. tolerated: accurate but harmless findings. hallucinated: the agent claimed something false. See docs/RECALL_REVIEW.md.",
+  "prompt_id": "R94",
+  "run": 1,
+  "labeller": "ai-review + oracle (see scripts/make_labels.py); checkable defects verified by the lead agent; no human labels yet",
+  "labelled_on": "2026-10-26",
+  "defects": [],
+  "tolerated": [],
+  "hallucinated": true,
+  "hallucination_severity": "low",
+  "statically_checkable": false,
+  "hallucinations": [
+    {
+      "claim": "the README says they should be **6 characters** (`src/code.ts:23`)",
+      "truth": "The README line is README.md:23; code.ts has only 17 lines.",
+      "kind": "wrong-fact",
+      "severity": "low"
+    }
+  ],
+  "outcome": "other",
+  "reviewed": true,
+  "mutation_source": false,
+  "intent_facts": [],
+  "would_accept": null,
+  "notes": ""
+}

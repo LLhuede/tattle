@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "id": "H63",
+  "title": "File renamer CLI",
+  "category": "greenfield",
+  "language": "ts",
+  "stack": "TypeScript + Node CLI",
+  "base": null,
+  "first_batch": false,
+  "turns": [
+    "build me a tiny CLI in typescript that renames every file in a folder to lowercase-kebab-case. dry run by default, --apply to actually do it. truncate names longer than 60 chars. no dependencies at all, just node"
+  ],
+  "expected_facts": [
+    {
+      "id": "ts-node",
+      "description": "TypeScript CLI on Node",
+      "polarity": "must",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "typescript",
+          "node"
+        ]
+      }
+    },
+    {
+      "id": "dry-run",
+      "description": "Dry run by default",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "dry-run"
+      }
+    },
+    {
+      "id": "max-60",
+      "description": "Names truncated to 60 characters",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 60,
+        "unit": "characters"
+      }
+    },
+    {
+      "id": "no-new-deps",
+      "description": "No dependencies at all",
+      "polarity": "must",
+      "kind": "constraint.deps_unchanged",
+      "params": {}
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout2 (constraint-focused)"
+}

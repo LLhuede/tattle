@@ -1,0 +1,153 @@
+{
+  "env": {
+    "TATTLE_REPORT_COMMAND": "/tattle-report"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "TATTLE_SOURCE=project TATTLE_REPORT_COMMAND=/tattle-report \"$CLAUDE_PROJECT_DIR/plugin/scripts/tattle\" hook",
+            "timeout": 30
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR/scripts/dev_plugin.sh\" --if-missing",
+            "async": true,
+            "timeout": 600
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "TATTLE_SOURCE=project TATTLE_REPORT_COMMAND=/tattle-report \"$CLAUDE_PROJECT_DIR/plugin/scripts/tattle\" hook",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "TATTLE_SOURCE=project TATTLE_REPORT_COMMAND=/tattle-report \"$CLAUDE_PROJECT_DIR/plugin/scripts/tattle\" hook",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "TATTLE_SOURCE=project TATTLE_REPORT_COMMAND=/tattle-report \"$CLAUDE_PROJECT_DIR/plugin/scripts/tattle\" hook",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "TATTLE_SOURCE=project TATTLE_REPORT_COMMAND=/tattle-report \"$CLAUDE_PROJECT_DIR/plugin/scripts/tattle\" hook",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "PermissionDenied": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "TATTLE_SOURCE=project TATTLE_REPORT_COMMAND=/tattle-report \"$CLAUDE_PROJECT_DIR/plugin/scripts/tattle\" hook",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "TATTLE_SOURCE=project TATTLE_REPORT_COMMAND=/tattle-report \"$CLAUDE_PROJECT_DIR/plugin/scripts/tattle\" hook",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "TATTLE_SOURCE=project TATTLE_REPORT_COMMAND=/tattle-report \"$CLAUDE_PROJECT_DIR/plugin/scripts/tattle\" hook",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "TATTLE_SOURCE=project TATTLE_REPORT_COMMAND=/tattle-report \"$CLAUDE_PROJECT_DIR/plugin/scripts/tattle\" hook",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "TATTLE_SOURCE=project TATTLE_REPORT_COMMAND=/tattle-report \"$CLAUDE_PROJECT_DIR/plugin/scripts/tattle\" hook",
+            "timeout": 60
+          }
+        ]
+      }
+    ],
+    "StopFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "TATTLE_SOURCE=project TATTLE_REPORT_COMMAND=/tattle-report \"$CLAUDE_PROJECT_DIR/plugin/scripts/tattle\" hook",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "TATTLE_SOURCE=project TATTLE_REPORT_COMMAND=/tattle-report \"$CLAUDE_PROJECT_DIR/plugin/scripts/tattle\" hook",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

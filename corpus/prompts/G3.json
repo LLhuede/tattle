@@ -1,0 +1,69 @@
+{
+  "schema": 1,
+  "id": "G3",
+  "title": "URL shortener API",
+  "category": "greenfield",
+  "language": "ts",
+  "stack": "express+sqlite",
+  "base": null,
+  "first_batch": true,
+  "turns": [
+    "make a url shortener api in typescript with express. short codes should be 6 characters, letters and numbers only. store them in sqlite. if someone visits the short link redirect them. include tests"
+  ],
+  "expected_facts": [
+    {
+      "id": "stack",
+      "description": "Uses TypeScript + Express + SQLite",
+      "polarity": "must",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "typescript",
+          "express",
+          "sqlite"
+        ]
+      }
+    },
+    {
+      "id": "code-length",
+      "description": "Short codes are 6 characters",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 6,
+        "target_hint": "code generator"
+      }
+    },
+    {
+      "id": "charset",
+      "description": "Codes use letters and numbers only",
+      "polarity": "must",
+      "kind": "param.charset",
+      "params": {
+        "value": "alphanumeric"
+      }
+    },
+    {
+      "id": "redirect",
+      "description": "Redirect route exists",
+      "polarity": "must",
+      "kind": "route.exists",
+      "params": {
+        "target_hint": "redirect"
+      }
+    },
+    {
+      "id": "tests",
+      "description": "Tests exist",
+      "polarity": "must",
+      "kind": "require.tests_added"
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [
+    "8-character codes",
+    "Charset includes - or _",
+    "No collision handling (log only, don't flag)"
+  ],
+  "notes": "Changed from Python to TypeScript (JS/TS first). Python version kept as G3-py in docs/TEST_PROMPTS.md. Needed as the base for E3, T1 and V2."
+}

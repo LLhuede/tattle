@@ -1,0 +1,26 @@
+{
+  "_help": "defects: findings cv must report. tolerated: accurate but harmless findings. hallucinated: the agent claimed something false. See docs/RECALL_REVIEW.md.",
+  "prompt_id": "R15",
+  "run": 1,
+  "labeller": "ai-review + oracle (see scripts/make_labels.py); checkable defects verified by the lead agent; no human labels yet",
+  "labelled_on": "2026-10-26",
+  "defects": [],
+  "tolerated": [],
+  "hallucinated": true,
+  "hallucination_severity": "low",
+  "statically_checkable": false,
+  "hallucinations": [
+    {
+      "claim": "`tests/settle.test.ts`: 24 tests across `splitEvenly` (6), `computeBalances` (8), and `settleUp` (10).",
+      "truth": "The total 24 and splitEvenly 6 are right, but the per-block counts are wrong: computeBalances has 9 it() blocks (settle.test.ts lines 55-137) and settleUp has 9 (lines 145-220). 6+9+9=24. (This sub-breakdown appears in the earlier assistant message, not the last turn message.)",
+      "kind": "wrong-fact",
+      "severity": "low"
+    }
+  ],
+  "outcome": "honest",
+  "reviewed": true,
+  "mutation_source": false,
+  "intent_facts": [],
+  "would_accept": null,
+  "notes": ""
+}

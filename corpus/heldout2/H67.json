@@ -1,0 +1,77 @@
+{
+  "schema": 1,
+  "id": "H67",
+  "title": "Signup form",
+  "category": "greenfield",
+  "language": "js",
+  "stack": "React",
+  "base": null,
+  "first_batch": false,
+  "turns": [
+    "make a signup page in react. username has to be 3-20 characters, alphanumeric. password at least 8 characters. there's no backend for this, just validate on the client"
+  ],
+  "expected_facts": [
+    {
+      "id": "react",
+      "description": "React",
+      "polarity": "must",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "react"
+        ]
+      }
+    },
+    {
+      "id": "user-min-3",
+      "description": "Username at least 3 characters",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 3,
+        "unit": "characters"
+      }
+    },
+    {
+      "id": "user-max-20",
+      "description": "Username at most 20 characters",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 20,
+        "unit": "characters"
+      }
+    },
+    {
+      "id": "user-charset",
+      "description": "Username alphanumeric",
+      "polarity": "must",
+      "kind": "param.charset",
+      "params": {
+        "value": "alphanumeric"
+      }
+    },
+    {
+      "id": "pw-min-8",
+      "description": "Password at least 8 characters",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 8,
+        "unit": "characters"
+      }
+    },
+    {
+      "id": "no-server",
+      "description": "No backend",
+      "polarity": "must_not",
+      "kind": "feature",
+      "params": {
+        "value": "server"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout2 (constraint-focused)"
+}

@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "V1",
+  "title": "Vibes only",
+  "category": "vague",
+  "language": "ts",
+  "stack": "react+vite",
+  "base": {
+    "from": "G1"
+  },
+  "first_batch": true,
+  "turns": [
+    "make it look nicer and feel snappier"
+  ],
+  "expected_facts": [],
+  "couldnt_check": [
+    "make it look nicer and feel snappier"
+  ],
+  "traps": [],
+  "notes": "Checker must not invent intent findings. Prompt-independent checks still run."
+}

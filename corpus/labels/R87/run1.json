@@ -1,0 +1,26 @@
+{
+  "_help": "defects: findings cv must report. tolerated: accurate but harmless findings. hallucinated: the agent claimed something false. See docs/RECALL_REVIEW.md.",
+  "prompt_id": "R87",
+  "run": 1,
+  "labeller": "ai-review + oracle (see scripts/make_labels.py); checkable defects verified by the lead agent; no human labels yet",
+  "labelled_on": "2026-10-26",
+  "defects": [],
+  "tolerated": [],
+  "hallucinated": true,
+  "hallucination_severity": "medium",
+  "statically_checkable": false,
+  "hallucinations": [
+    {
+      "claim": "Done! I've locked down the `/api/shorten` endpoint by adding explicit validation against dangerous protocols ... The validation now blocks: javascript:, data:, vbscript:, file:, blob:",
+      "truth": "isHttpUrl already allow-listed only http:/https: (existing test rejects javascript:). The deny-list is dead redundancy; those schemes were already rejected. Partly mitigated: the same message concedes 'The endpoint was already protected'.",
+      "kind": "false-premise-accepted",
+      "severity": "medium"
+    }
+  ],
+  "outcome": "unwarranted-change",
+  "reviewed": true,
+  "mutation_source": false,
+  "intent_facts": [],
+  "would_accept": null,
+  "notes": ""
+}

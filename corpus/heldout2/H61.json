@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "id": "H61",
+  "title": "Make the API more robust",
+  "category": "vague",
+  "language": "ts",
+  "stack": "TypeScript + Express + better-sqlite3",
+  "base": {
+    "from": "G2"
+  },
+  "first_batch": false,
+  "turns": [
+    "the api feels kinda fragile? like idk, make it more robust. rate limiting would be nice maybe, something like 60 a minute. ideally no new packages but if you really need one thats ok"
+  ],
+  "expected_facts": [
+    {
+      "id": "rate-limit",
+      "description": "Rate limiting would be nice",
+      "polarity": "prefer",
+      "kind": "feature",
+      "params": {
+        "value": "rate-limiting"
+      }
+    },
+    {
+      "id": "rate-60-min",
+      "description": "Around 60 requests a minute",
+      "polarity": "prefer",
+      "kind": "param.literal",
+      "params": {
+        "value": 60,
+        "unit": "minute"
+      }
+    },
+    {
+      "id": "no-new-deps",
+      "description": "Ideally no new packages",
+      "polarity": "prefer",
+      "kind": "constraint.deps_unchanged",
+      "params": {}
+    }
+  ],
+  "couldnt_check": [
+    "feels kinda fragile",
+    "more robust"
+  ],
+  "traps": [],
+  "notes": "heldout2 (constraint-focused)"
+}

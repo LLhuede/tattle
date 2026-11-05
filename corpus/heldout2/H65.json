@@ -1,0 +1,116 @@
+{
+  "schema": 1,
+  "id": "H65",
+  "title": "Book club API",
+  "category": "greenfield",
+  "language": "ts",
+  "stack": "Express + TypeScript",
+  "base": null,
+  "first_batch": false,
+  "turns": [
+    "Express + TypeScript API for my book club. Routes: GET /books, POST /books, POST /books/:id/reviews. Reviews max 500 chars, ratings 1 to 5. Store everything in a JSON file, no database. Rate limit to 30 requests per minute per IP. Write tests with vitest."
+  ],
+  "expected_facts": [
+    {
+      "id": "stack",
+      "description": "Express + TypeScript, vitest tests",
+      "polarity": "must",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "express",
+          "typescript",
+          "vitest"
+        ]
+      }
+    },
+    {
+      "id": "books-route",
+      "description": "GET/POST /books",
+      "polarity": "must",
+      "kind": "route.exists",
+      "params": {
+        "target_hint": "books"
+      }
+    },
+    {
+      "id": "reviews-route",
+      "description": "POST /books/:id/reviews",
+      "polarity": "must",
+      "kind": "route.exists",
+      "params": {
+        "target_hint": "reviews"
+      }
+    },
+    {
+      "id": "symbols",
+      "description": "Books and reviews",
+      "polarity": "must",
+      "kind": "symbols",
+      "params": {
+        "value": [
+          "book",
+          "review"
+        ]
+      }
+    },
+    {
+      "id": "review-500",
+      "description": "Reviews at most 500 characters",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 500,
+        "unit": "characters"
+      }
+    },
+    {
+      "id": "storage",
+      "description": "JSON file storage",
+      "polarity": "must",
+      "kind": "storage",
+      "params": {
+        "value": "file"
+      }
+    },
+    {
+      "id": "rate-limit",
+      "description": "Rate limiting",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "rate-limiting"
+      }
+    },
+    {
+      "id": "rate-30-min",
+      "description": "30 requests per minute",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 30,
+        "unit": "minute"
+      }
+    },
+    {
+      "id": "per-ip",
+      "description": "Per IP",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": "ip",
+        "unit": "per"
+      }
+    },
+    {
+      "id": "tests-added",
+      "description": "Write tests",
+      "polarity": "must",
+      "kind": "require.tests_added",
+      "params": {}
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout2 (constraint-focused). 'ratings 1 to 5' has no matching unit"
+}

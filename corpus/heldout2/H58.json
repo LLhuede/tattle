@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "id": "H58",
+  "title": "Person expenses and delete person",
+  "category": "edit",
+  "language": "ts",
+  "stack": "TypeScript + Express + better-sqlite3",
+  "base": {
+    "from": "G2"
+  },
+  "first_batch": false,
+  "turns": [
+    "two new routes pls: GET /people/:id/expenses (everything that person paid for or was split into) and DELETE /people/:id which should 409 if theyre on any expense. write tests for both. settle.ts stays untouched"
+  ],
+  "expected_facts": [
+    {
+      "id": "person-expenses",
+      "description": "New GET /people/:id/expenses",
+      "polarity": "must",
+      "kind": "route.exists",
+      "params": {
+        "target_hint": "expenses"
+      }
+    },
+    {
+      "id": "delete-person",
+      "description": "New DELETE /people/:id",
+      "polarity": "must",
+      "kind": "route.exists",
+      "params": {
+        "target_hint": "people"
+      }
+    },
+    {
+      "id": "tests-added",
+      "description": "Write tests for both new routes",
+      "polarity": "must",
+      "kind": "require.tests_added",
+      "params": {}
+    },
+    {
+      "id": "settle-untouched",
+      "description": "settle.ts stays untouched",
+      "polarity": "must_not",
+      "kind": "target.unchanged",
+      "params": {
+        "target_hint": "settle.ts"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout2 (constraint-focused)"
+}

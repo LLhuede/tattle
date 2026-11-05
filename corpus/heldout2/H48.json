@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "id": "H48",
+  "title": "List links endpoint",
+  "category": "edit",
+  "language": "ts",
+  "stack": "TypeScript + Express + better-sqlite3",
+  "base": {
+    "from": "G3"
+  },
+  "first_batch": false,
+  "turns": [
+    "add GET /api/links that lists every short link newest first, paginated with ?page= (20 per page). do NOT touch the redirect route GET /:code, it's perfect as is and i'm scared of breaking it"
+  ],
+  "expected_facts": [
+    {
+      "id": "links-route",
+      "description": "New GET /api/links listing links",
+      "polarity": "must",
+      "kind": "route.exists",
+      "params": {
+        "target_hint": "links"
+      }
+    },
+    {
+      "id": "pagination",
+      "description": "Paginate with ?page=",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "pagination"
+      }
+    },
+    {
+      "id": "redirect-untouched",
+      "description": "Leave the GET /:code redirect route alone",
+      "polarity": "must_not",
+      "kind": "target.unchanged",
+      "params": {
+        "target_hint": "redirect"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout2 (constraint-focused). '20 per page' has no matching unit"
+}

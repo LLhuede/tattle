@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "id": "D1",
+  "title": "Hybrid: all 8 medium builds, the flagship twice, the simulated user once, then one strong-model flagship",
+  "notes": "Cheapest and most failure-prone runs first (Haiku 4.5 hallucinated in 31 of 80 recall sessions). Gates stop the plan early if a spec turns out unbuildable or spend runs ahead of the estimate. Rerun `bigtest.py plan` to continue after a usage limit; finished runs are skipped.",
+  "order": "as listed",
+  "runs": [
+    { "suite": "bigtests/B-breadth/b1-notes-api/suite.json", "mode": "run", "model": "claude-haiku-4-5", "runs": 1 },
+    { "suite": "bigtests/B-breadth/b2-csv-cli/suite.json", "mode": "run", "model": "claude-haiku-4-5", "runs": 1 },
+    { "suite": "bigtests/B-breadth/b3-money-lib/suite.json", "mode": "run", "model": "claude-haiku-4-5", "runs": 1 },
+    { "suite": "bigtests/B-breadth/b4-job-worker/suite.json", "mode": "run", "model": "claude-haiku-4-5", "runs": 1 },
+    { "suite": "bigtests/B-breadth/b5-quiz-web/suite.json", "mode": "run", "model": "claude-haiku-4-5", "runs": 1 },
+    { "suite": "bigtests/B-breadth/b6-inventory-api/suite.json", "mode": "run", "model": "claude-haiku-4-5", "runs": 1 },
+    { "suite": "bigtests/B-breadth/b7-log-cli/suite.json", "mode": "run", "model": "claude-haiku-4-5", "runs": 1 },
+    { "suite": "bigtests/B-breadth/b8-cache-lib/suite.json", "mode": "run", "model": "claude-haiku-4-5", "runs": 1 },
+    { "suite": "bigtests/A-flagship/suite.json", "mode": "run", "model": "claude-haiku-4-5", "runs": 2 },
+    { "suite": "bigtests/C-simuser/backlog.json", "mode": "simuser", "model": "claude-haiku-4-5", "runs": 1 },
+    { "suite": "bigtests/A-flagship/suite.json", "mode": "run", "model": "claude-opus-5-5", "runs": 1, "max_usd": 60 }
+  ],
+  "gates": [
+    { "after": "b1-notes-api/claude-haiku-4-5/run1", "stop_if": "spent_usd > 15", "why": "one medium build costing more than 1.5x its cap means the estimates are off" },
+    { "after": "A-flagship/claude-haiku-4-5/run1", "stop_if": "best_pass_rate < 0.2", "why": "the flagship is too hard to build at all: fix the spec before spending more (the best point of the run, not the end: an agent can break a working app)" },
+    { "after": "C-simuser/claude-haiku-4-5/run1", "stop_if": "spent_usd > 70", "why": "the simulated-user loop ran away" }
+  ],
+  "budget": { "max_usd": 250 }
+}

@@ -1,0 +1,92 @@
+{
+  "schema": 1,
+  "id": "H38",
+  "title": "Weather dashboard, plan changed",
+  "category": "trap",
+  "language": "ts",
+  "stack": "Vue (switched from React), OpenWeatherMap",
+  "base": null,
+  "first_batch": false,
+  "turns": [
+    "make a weather dashboard with react. show current temp + a 5 day forecast for whatever city you search. use openweathermap. refresh every 10 minutes. save the last searched city in localstorage",
+    "change of plan - dont save anything in localstorage, i want it totally stateless. make the refresh every 30 min instead, the free tier limits are tight. oh and switch to vue im more comfortable reading it"
+  ],
+  "expected_facts": [
+    {
+      "id": "stack-vue",
+      "description": "Vue",
+      "polarity": "must",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "vue"
+        ]
+      }
+    },
+    {
+      "id": "no-react",
+      "description": "Not React (switched to Vue)",
+      "polarity": "must_not",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "react"
+        ]
+      }
+    },
+    {
+      "id": "search",
+      "description": "Search for a city",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "search"
+      }
+    },
+    {
+      "id": "forecast",
+      "description": "Forecast",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "weather-forecast"
+      }
+    },
+    {
+      "id": "forecast-5d",
+      "description": "5 day forecast",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 5,
+        "unit": "day"
+      }
+    },
+    {
+      "id": "refresh-30",
+      "description": "Refresh every 30 minutes",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 30,
+        "unit": "minute"
+      }
+    },
+    {
+      "id": "no-local",
+      "description": "No localStorage",
+      "polarity": "must_not",
+      "kind": "storage",
+      "params": {
+        "value": "browser"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [
+    "turn 2 reverses localStorage",
+    "turn 2 changes refresh from 10 to 30 minutes",
+    "turn 2 switches react to vue"
+  ],
+  "notes": "heldout v2"
+}

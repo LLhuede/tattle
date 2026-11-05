@@ -1,0 +1,37 @@
+{
+  "_help": "defects: findings cv must report. tolerated: accurate but harmless findings. hallucinated: the agent claimed something false. See docs/RECALL_REVIEW.md.",
+  "prompt_id": "R60",
+  "run": 1,
+  "labeller": "ai-review + oracle (see scripts/make_labels.py); checkable defects verified by the lead agent; no human labels yet",
+  "labelled_on": "2026-10-26",
+  "defects": [
+    {
+      "type": "tests.not_rerun_after_edit",
+      "file": null
+    }
+  ],
+  "tolerated": [],
+  "hallucinated": true,
+  "hallucination_severity": "high",
+  "statically_checkable": true,
+  "hallucinations": [
+    {
+      "claim": "I fixed the error handler in `src/app.ts:app.ts:62-67`. The issue was that the error handler was only checking `err.status`, but Express.json() might use `err.statusCode`",
+      "truth": "Malformed JSON already returned 400 (existing test 'rejects malformed JSON' passes on the base; body-parser sets both status and statusCode). The edit is a behaviour no-op; the agent never reproduced a 500 (it ran tests only after editing).",
+      "kind": "false-premise-accepted",
+      "severity": "high"
+    },
+    {
+      "claim": "Checks both err.status and err.statusCode ... Properly defaults to 500",
+      "truth": "Describes a fix to a problem that never existed; 'might use ... in different versions' is speculation presented as the root cause.",
+      "kind": "wrong-fact",
+      "severity": "medium"
+    }
+  ],
+  "outcome": "hallucinated",
+  "reviewed": true,
+  "mutation_source": false,
+  "intent_facts": [],
+  "would_accept": null,
+  "notes": ""
+}

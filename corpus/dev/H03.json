@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "id": "H03",
+  "title": "Job board API",
+  "category": "greenfield",
+  "language": "ts",
+  "stack": "express+postgres+prisma",
+  "base": null,
+  "first_batch": false,
+  "turns": [
+    "make a job board api. typescript, express, postgres w/ prisma. theres companies and jobs. GET /jobs needs pagination (20 per page) and a filter for location. companies have to log in to post a job, and send the company an email when someone applies. write vitest tests for the jobs endpoints"
+  ],
+  "expected_facts": [
+    {
+      "id": "stack",
+      "description": "TypeScript, Express, Postgres, Prisma, Vitest",
+      "polarity": "must",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "typescript",
+          "express",
+          "postgres",
+          "prisma",
+          "vitest"
+        ]
+      }
+    },
+    {
+      "id": "symbols",
+      "description": "Companies and jobs",
+      "polarity": "must",
+      "kind": "symbols",
+      "params": {
+        "value": [
+          "company",
+          "job"
+        ]
+      }
+    },
+    {
+      "id": "jobs-route",
+      "description": "GET /jobs endpoint",
+      "polarity": "must",
+      "kind": "route.exists",
+      "params": {
+        "target_hint": "jobs"
+      }
+    },
+    {
+      "id": "pagination",
+      "description": "Pagination on /jobs",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "pagination"
+      }
+    },
+    {
+      "id": "filter",
+      "description": "Filter by location",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "location-filter"
+      }
+    },
+    {
+      "id": "auth",
+      "description": "Companies log in to post",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "auth"
+      }
+    },
+    {
+      "id": "email",
+      "description": "Email company on application",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "email"
+      }
+    },
+    {
+      "id": "tests",
+      "description": "Tests for jobs endpoints",
+      "polarity": "must",
+      "kind": "require.tests_added",
+      "params": {
+        "target_hint": "jobs"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "dev set: written as held-out by a separate agent; used to build lexicon v2"
+}

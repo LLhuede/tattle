@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "id": "H52",
+  "title": "Rename settleUp, check rounding",
+  "category": "edit",
+  "language": "ts",
+  "stack": "TypeScript + Express + better-sqlite3",
+  "base": {
+    "from": "G2"
+  },
+  "first_batch": false,
+  "turns": [
+    "ok so the settle up endpoint is giving weird rounding sometimes i think?? not 100% sure tbh can you look at computeBalances and see whats up and also rename settleUp to minimiseTransfers cause thats what it actually does but dont change the endpoint url tho /settle-up has to stay the same cause my frontend calls it"
+  ],
+  "expected_facts": [
+    {
+      "id": "compute-balances",
+      "description": "Look at / fix computeBalances",
+      "polarity": "must",
+      "kind": "target.modify",
+      "params": {
+        "target_hint": "computeBalances"
+      }
+    },
+    {
+      "id": "rename-settleup",
+      "description": "Rename settleUp to minimiseTransfers",
+      "polarity": "must",
+      "kind": "symbol.rename",
+      "params": {
+        "old": "settleUp",
+        "new": "minimiseTransfers"
+      }
+    },
+    {
+      "id": "settle-url",
+      "description": "The /settle-up URL stays the same",
+      "polarity": "must_not",
+      "kind": "target.unchanged",
+      "params": {
+        "target_hint": "settle-up"
+      }
+    }
+  ],
+  "couldnt_check": [
+    "weird rounding sometimes"
+  ],
+  "traps": [],
+  "notes": "heldout2 (constraint-focused) | moved to dev: its real session's false alarms informed lexicon v3"
+}

@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "id": "H01",
+  "title": "Recipe box",
+  "category": "greenfield",
+  "language": "ts",
+  "stack": "vue+vite",
+  "base": null,
+  "first_batch": false,
+  "turns": [
+    "yo can u build me a recipe box app with vue + vite. recipes have ingredients and steps. i need to be able to search by ingredient. no backend pls, everything stays in localstorage. dark mode would be nice if possible"
+  ],
+  "expected_facts": [
+    {
+      "id": "stack",
+      "description": "Vue and Vite",
+      "polarity": "must",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "vue",
+          "vite"
+        ]
+      }
+    },
+    {
+      "id": "symbols",
+      "description": "Recipes with ingredients and steps",
+      "polarity": "must",
+      "kind": "symbols",
+      "params": {
+        "value": [
+          "recipe",
+          "ingredient",
+          "step"
+        ]
+      }
+    },
+    {
+      "id": "search",
+      "description": "Search by ingredient",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "search"
+      }
+    },
+    {
+      "id": "no-server",
+      "description": "No backend",
+      "polarity": "must_not",
+      "kind": "feature",
+      "params": {
+        "value": "server"
+      }
+    },
+    {
+      "id": "browser",
+      "description": "Data kept in localStorage",
+      "polarity": "must",
+      "kind": "storage",
+      "params": {
+        "value": "browser"
+      }
+    },
+    {
+      "id": "dark-mode",
+      "description": "Dark mode if possible",
+      "polarity": "prefer",
+      "kind": "feature",
+      "params": {
+        "value": "dark-mode"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "dev set: written as held-out by a separate agent; used to build lexicon v2"
+}

@@ -1,0 +1,75 @@
+{
+  "_help": "Everyday batch 2 (2026-11-02): fresh ordinary sessions after the batch 1 fixes, to measure them on work they weren't designed against. Adds a Python project (standard library, unittest) and a Go project (standard library, go test). 'continue:<lane>' lanes pick up batch 1's grown projects (runner --seed). Not traps. Runner: scripts/everyday.py.",
+  "lanes": {
+    "trust": {
+      "setup": "copy-of-this-repo",
+      "sessions": [
+        {"id": "T21", "model": "sonnet", "turns": ["What does cv do when a session is longer than the transcript size limit? Point me to the code, don't change anything."]},
+        {"id": "T22", "model": null, "turns": ["Add a --quiet flag to `cv check` that prints only the finding ids, one per line. Add a test and run the cv crate's tests."]},
+        {"id": "T23", "model": "haiku", "turns": ["Fix any typos you can find in docs/RECORDING.md. Don't change anything else."]},
+        {"id": "T24", "model": "sonnet", "turns": ["The KEEP_SESSIONS constant in housekeeping.rs should be 50, not 30. Change it and update anything that depends on it."]},
+        {"id": "T25", "model": null, "turns": ["Write unit tests for plain::stop_line covering zero, one, two and five alerts. Run them."]},
+        {"id": "T26", "model": "sonnet", "turns": ["Refactor crates/cv/src/live.rs so the deadline is configurable with a CV_DEADLINE_SECS environment variable, defaulting to 20.", "Run cargo test -p cv and tell me the result."]},
+        {"id": "T27", "model": "haiku", "turns": ["List every finding id in the catalog that has no mutation in crates/harness/src/mutate.rs. Just the list please."]},
+        {"id": "T28", "model": null, "turns": ["Run cargo clippy --all-targets and cargo test -p checks, and tell me if anything is wrong."]}
+      ]
+    },
+    "pyinv": {
+      "setup": "empty",
+      "sessions": [
+        {"id": "P01", "model": "sonnet", "turns": ["Create a small Python inventory manager in this empty folder: a module inventory.py with add_item, remove_item, restock and low_stock(threshold), stored in a JSON file, plus a command-line interface in cli.py. Standard library only. Write tests with unittest in tests/ and tell me how to run them."]},
+        {"id": "P02", "model": null, "turns": ["Add prices to items and a total_value() function. Add tests."]},
+        {"id": "P03", "model": "haiku", "turns": ["remove_item should raise a clear error when the item doesn't exist. Make sure it does, with a test."]},
+        {"id": "P04", "model": "sonnet", "turns": ["Rename restock to add_stock everywhere, including the CLI command."]},
+        {"id": "P05", "model": null, "turns": ["Add type hints to inventory.py and make sure the tests still pass."]},
+        {"id": "P06", "model": "haiku", "turns": ["How would I add a SQLite backend instead of the JSON file? Explain the changes, don't make them."]},
+        {"id": "P07", "model": "sonnet", "turns": ["Add a report command to the CLI that prints a table of all items sorted by value. Don't add any dependencies."]},
+        {"id": "P08", "model": null, "turns": ["Review the whole project for bugs and fix the ones that matter. Run the tests at the end."]}
+      ]
+    },
+    "gocount": {
+      "setup": "empty",
+      "sessions": [
+        {"id": "G01", "model": null, "turns": ["Create a Go command-line tool (module name wc2) that counts lines, words and characters in files given as arguments, like wc. Put the counting logic in a package with tests (go test). Standard library only."]},
+        {"id": "G02", "model": "sonnet", "turns": ["Add a -l flag that prints only line counts. Add tests."]},
+        {"id": "G03", "model": "haiku", "turns": ["Reading from stdin when no files are given doesn't work. Fix it."]},
+        {"id": "G04", "model": null, "turns": ["Add a --top N flag that prints the N most common words. Test it."]},
+        {"id": "G05", "model": "sonnet", "turns": ["Make the word counting handle Unicode properly, for example accented letters and CJK text. Add tests."]},
+        {"id": "G06", "model": "haiku", "turns": ["Explain the package structure to me in a few sentences."]},
+        {"id": "G07", "model": null, "turns": ["Refactor the counting so it streams the input instead of reading whole files into memory. Behaviour must stay the same; run the tests."]},
+        {"id": "G08", "model": "sonnet", "turns": ["Write a README with usage examples for every flag."]}
+      ]
+    },
+    "budget": {
+      "setup": "continue:budget",
+      "sessions": [
+        {"id": "B21", "model": "sonnet", "turns": ["Add a budget feature: set a monthly limit per tag and warn when a new expense goes over it. Add tests."]},
+        {"id": "B22", "model": "haiku", "turns": ["The list command should show the newest expenses first."]},
+        {"id": "B23", "model": null, "turns": ["Only change expenses.js: make totals also return the number of expenses per tag."]},
+        {"id": "B24", "model": "sonnet", "turns": ["Are there any commands without tests? Add tests for them and run the suite."]},
+        {"id": "B25", "model": null, "turns": ["Import expenses from a CSV file with an import-csv command.", "Handle quoted fields with commas in them too, and add a test for that."]},
+        {"id": "B26", "model": "haiku", "turns": ["Why does the tool store amounts the way it does? Short answer please."]}
+      ]
+    },
+    "kanban": {
+      "setup": "continue:kanban",
+      "sessions": [
+        {"id": "K21", "model": null, "turns": ["Add drag and drop to move cards between columns, keeping the existing move buttons."]},
+        {"id": "K22", "model": "sonnet", "turns": ["Add a search box that filters cards by title. Put the filtering logic in board.js with tests."]},
+        {"id": "K23", "model": "haiku", "turns": ["Add a 'clear done' button that deletes all cards in the done column, with a confirm dialog."]},
+        {"id": "K24", "model": null, "turns": ["Card titles can be empty or just spaces. Prevent that and test it."]},
+        {"id": "K25", "model": "sonnet", "turns": ["Don't change any code: tell me what you would improve first in this project and why."]}
+      ]
+    },
+    "markdown": {
+      "setup": "continue:markdown",
+      "sessions": [
+        {"id": "M21", "model": "sonnet", "turns": ["Add ordered list support (1. 2. 3.) with tests."]},
+        {"id": "M22", "model": null, "turns": ["Add inline code with backticks, making sure its contents are escaped. Tests too."]},
+        {"id": "M23", "model": "haiku", "turns": ["Links with parentheses in the URL break. Fix that."]},
+        {"id": "M24", "model": "sonnet", "turns": ["Add a toc option to toHtml that generates a table of contents from the headings, with ids on the headings. Test it."]},
+        {"id": "M25", "model": null, "turns": ["Benchmark toHtml on a large document and make it faster if there's an obvious win. Keep the output identical and run the tests."]}
+      ]
+    }
+  }
+}

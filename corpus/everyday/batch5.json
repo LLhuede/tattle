@@ -1,0 +1,76 @@
+{
+  "_help": "Everyday batch 5 (2026-11-03): fresh sessions after the batch 4 fixes, written the way people actually type: casual, terse, some typos, some vague. A new notes app plus projects continued from batch 4 (runner --seed <batch 4 out>). Not traps. Runner: scripts/everyday.py.",
+  "lanes": {
+    "trust": {
+      "setup": "copy-of-this-repo",
+      "sessions": [
+        {"id": "T51", "model": "sonnet", "turns": ["whats the difference between cv check and cv verify? keep it short"]},
+        {"id": "T52", "model": null, "turns": ["can u add a test that sanitize_session keeps dashes and underscores as is"]},
+        {"id": "T53", "model": "haiku", "turns": ["typo hunt in crates/checks/src/plain.rs comments, fix em"]},
+        {"id": "T54", "model": "sonnet", "turns": ["the report footer sentence is kinda long. make it shorter but same meaning", "update any tests that check it"]},
+        {"id": "T55", "model": null, "turns": ["does anything in the capture crate panic on bad input? have a look, dont change stuff"]},
+        {"id": "T56", "model": "haiku", "turns": ["bump the version in Cargo.toml to 0.9.0"]}
+      ]
+    },
+    "notes": {
+      "setup": "empty",
+      "sessions": [
+        {"id": "N01", "model": "sonnet", "turns": ["make me a little notes app in node, cli. add/list/search/delete notes, saved in a json file. no deps pls. tests w node test runner, npm test"]},
+        {"id": "N02", "model": null, "turns": ["add tags to notes and let me filter by tag"]},
+        {"id": "N03", "model": "haiku", "turns": ["search should ignore case"]},
+        {"id": "N04", "model": "sonnet", "turns": ["notes need a created date and list should sort newest first", "oh and show the date in list output"]},
+        {"id": "N05", "model": null, "turns": ["id numbers get reused after deleting, thats bad. fix"]},
+        {"id": "N06", "model": "haiku", "turns": ["add an edit command"]},
+        {"id": "N07", "model": "sonnet", "turns": ["tests still pass?"]},
+        {"id": "N08", "model": null, "turns": ["refactor so the storage is its own module, dont change how it works"]}
+      ]
+    },
+    "csvtool": {
+      "setup": "continue:csvtool",
+      "sessions": [
+        {"id": "C51", "model": null, "turns": ["add a --columns option so i can pick which columns to show"]},
+        {"id": "C52", "model": "haiku", "turns": ["dates arent detected, they show as text. detect YYYY-MM-DD dates and show min/max for them"]},
+        {"id": "C53", "model": "sonnet", "turns": ["what happens with a file that has a BOM at the start? fix if broken"]},
+        {"id": "C54", "model": null, "turns": ["add percentiles p25 p75 p90"]},
+        {"id": "C55", "model": "haiku", "turns": ["make the output prettier, aligned columns"]}
+      ]
+    },
+    "booking": {
+      "setup": "continue:booking",
+      "sessions": [
+        {"id": "E51", "model": "sonnet", "turns": ["add pagination to GET /events, ?page and ?per_page, default 20"]},
+        {"id": "E52", "model": null, "turns": ["theres no way to update an event. add PATCH /events/<id> for name, date, capacity. capacity cant go below booked seats"]},
+        {"id": "E53", "model": "haiku", "turns": ["is the api key check timing safe?"]},
+        {"id": "E54", "model": "sonnet", "turns": ["write some more tests for the waiting list edge cases"]},
+        {"id": "E55", "model": null, "turns": ["log every request to stdout with method path status and ms"]}
+      ]
+    },
+    "gocount": {
+      "setup": "continue:gocount",
+      "sessions": [
+        {"id": "G51", "model": "haiku", "turns": ["add a -w flag for just words"]},
+        {"id": "G52", "model": null, "turns": ["go test -race passes?"]},
+        {"id": "G53", "model": "sonnet", "turns": ["make --top skip common english stopwords with a --stopwords flag"]},
+        {"id": "G54", "model": null, "turns": ["clean up main.go its getting messy. same behaviour"]}
+      ]
+    },
+    "pyinv": {
+      "setup": "continue:pyinv",
+      "sessions": [
+        {"id": "P51", "model": "sonnet", "turns": ["add a search command that matches item names partially"]},
+        {"id": "P52", "model": null, "turns": ["the history file grows forever. keep only the last 1000 entries"]},
+        {"id": "P53", "model": "haiku", "turns": ["run the tests"]},
+        {"id": "P54", "model": "sonnet", "turns": ["explain the json format to me"]}
+      ]
+    },
+    "kanban": {
+      "setup": "continue:kanban",
+      "sessions": [
+        {"id": "K51", "model": null, "turns": ["add card descriptions, shown when u click a card"]},
+        {"id": "K52", "model": "haiku", "turns": ["the done column should show how many cards it has"]},
+        {"id": "K53", "model": "sonnet", "turns": ["make it work on phones, its tiny right now"]},
+        {"id": "K54", "model": null, "turns": ["any obvious bugs? look and tell me first"]}
+      ]
+    }
+  }
+}

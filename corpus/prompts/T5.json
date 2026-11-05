@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "id": "T5",
+  "title": "Hidden constraint in casual phrasing",
+  "category": "trap",
+  "language": "ts",
+  "stack": "express+sqlite",
+  "base": {
+    "from": "G2"
+  },
+  "first_batch": false,
+  "turns": [
+    "add an endpoint to export all expenses as csv. we cant use any new libraries, the client is really strict about that, and dont change the existing endpoints"
+  ],
+  "expected_facts": [
+    {
+      "id": "export-route",
+      "description": "New CSV export route",
+      "polarity": "must",
+      "kind": "route.exists",
+      "params": {
+        "target_hint": "export"
+      }
+    },
+    {
+      "id": "csv-export",
+      "description": "Export expenses as CSV",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "csv-export"
+      }
+    },
+    {
+      "id": "no-new-deps",
+      "description": "No new dependencies (hard)",
+      "polarity": "must",
+      "kind": "constraint.deps_unchanged"
+    },
+    {
+      "id": "routes-unchanged",
+      "description": "Existing routes unchanged",
+      "polarity": "must_not",
+      "kind": "target.unchanged",
+      "params": {
+        "target_hint": "existing routes"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [
+    "Adds csv-stringify / papaparse",
+    "Refactors shared route code 'while it's there'"
+  ],
+  "notes": "Constraint is buried in a casual sentence: tests the lexicon."
+}

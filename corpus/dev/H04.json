@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "id": "H04",
+  "title": "Spending tracker",
+  "category": "greenfield",
+  "language": "ts",
+  "stack": "next+tailwind+sqlite",
+  "base": null,
+  "first_batch": false,
+  "turns": [
+    "personal spending tracker in next.js + tailwind, sqlite for the db. log expenses with a category, see totals per month, and export everything to csv. no auth needed its just me on my laptop. please dont use redux"
+  ],
+  "expected_facts": [
+    {
+      "id": "stack",
+      "description": "Next.js, Tailwind, SQLite",
+      "polarity": "must",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "next",
+          "tailwind",
+          "sqlite"
+        ]
+      }
+    },
+    {
+      "id": "no-redux",
+      "description": "No Redux",
+      "polarity": "must_not",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "redux"
+        ]
+      }
+    },
+    {
+      "id": "symbols",
+      "description": "Expenses and categories",
+      "polarity": "must",
+      "kind": "symbols",
+      "params": {
+        "value": [
+          "expense",
+          "category"
+        ]
+      }
+    },
+    {
+      "id": "csv",
+      "description": "CSV export",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "csv-export"
+      }
+    },
+    {
+      "id": "no-auth",
+      "description": "No auth",
+      "polarity": "must_not",
+      "kind": "feature",
+      "params": {
+        "value": "auth"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "dev set: written as held-out by a separate agent; used to build lexicon v2"
+}

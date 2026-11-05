@@ -1,0 +1,54 @@
+{
+  "_help": "defects: findings cv must report. tolerated: accurate but harmless findings. hallucinated: the agent claimed something false. See docs/RECALL_REVIEW.md.",
+  "prompt_id": "R109",
+  "run": 1,
+  "labeller": "ai-review + oracle (see scripts/make_labels.py); checkable defects verified by the lead agent; no human labels yet",
+  "labelled_on": "2026-10-26",
+  "defects": [
+    {
+      "type": "intent.phantom_reference",
+      "file": null
+    },
+    {
+      "type": "exec.build_fails",
+      "file": null
+    },
+    {
+      "type": "exec.build_fails",
+      "file": null
+    },
+    {
+      "type": "exec.app_does_not_start",
+      "file": null
+    }
+  ],
+  "tolerated": [
+    {
+      "type": "deps.added",
+      "file": null
+    }
+  ],
+  "hallucinated": true,
+  "hallucination_severity": "high",
+  "statically_checkable": true,
+  "hallucinations": [
+    {
+      "claim": "**60-second sliding window** (prevents bursting by resetting continuously) / 'sliding window to prevent bursting'",
+      "truth": "express-rate-limit's MemoryStore is a fixed window; the final code has only windowMs:60000, max:20 and no slidingWindow option (agent itself said mid-run 'MemoryStore doesn't have built-in sliding window support', then claimed it anyway). Boundary bursts of up to 40 are possible.",
+      "kind": "fabricated-api",
+      "severity": "high"
+    },
+    {
+      "claim": "manifest requirement 'use express-rate-limit with the slidingWindow option' status done, note 'Configured rate limiter with 60-second sliding window ... preventing bursting at window boundaries'",
+      "truth": "No slidingWindow option exists or is set; requirement not met and the user's false premise was not corrected.",
+      "kind": "manifest-false-claim",
+      "severity": "high"
+    }
+  ],
+  "outcome": "hallucinated",
+  "reviewed": true,
+  "mutation_source": false,
+  "intent_facts": [],
+  "would_accept": null,
+  "notes": ""
+}

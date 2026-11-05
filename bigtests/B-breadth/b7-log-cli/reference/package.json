@@ -1,0 +1,6 @@
+{
+  "name": "logstat",
+  "version": "1.0.0",
+  "bin": { "logstat": "bin/logstat.js" },
+  "scripts": { "test": "node --test" }
+}

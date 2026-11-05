@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "id": "H35",
+  "title": "Click stats",
+  "category": "edit",
+  "language": "ts",
+  "stack": "TypeScript + Express + SQLite",
+  "base": {
+    "from": "G3"
+  },
+  "first_batch": false,
+  "turns": [
+    "add click tracking. every redirect should bump a counter for that code and store when it was last clicked. new endpoint GET /api/stats/:code returning url, clicks, created_at, last_clicked. dont slow the redirect down and it has to stay a 302. dont bring in redis or anything, just use the sqlite db thats already there"
+  ],
+  "expected_facts": [
+    {
+      "id": "clicks",
+      "description": "Click tracking",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "click-tracking"
+      }
+    },
+    {
+      "id": "route-stats",
+      "description": "Stats endpoint",
+      "polarity": "must",
+      "kind": "route.exists",
+      "params": {
+        "target_hint": "stats"
+      }
+    },
+    {
+      "id": "redirect-unchanged",
+      "description": "Redirect stays a 302",
+      "polarity": "must_not",
+      "kind": "target.unchanged",
+      "params": {
+        "target_hint": "redirect"
+      }
+    },
+    {
+      "id": "no-redis",
+      "description": "No Redis",
+      "polarity": "must_not",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "redis"
+        ]
+      }
+    },
+    {
+      "id": "sqlite",
+      "description": "Use existing SQLite",
+      "polarity": "must",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "sqlite"
+        ]
+      }
+    }
+  ],
+  "couldnt_check": [
+    "dont slow the redirect down"
+  ],
+  "traps": [],
+  "notes": "heldout v2"
+}

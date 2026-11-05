@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "id": "H11",
+  "title": "Paginate expenses",
+  "category": "edit",
+  "language": "ts",
+  "stack": "express+sqlite",
+  "base": {
+    "from": "G2"
+  },
+  "first_batch": false,
+  "turns": [
+    "add pagination to GET /expenses with ?page= and ?limit=, default limit 20 max 100. if someone doesnt pass page the response should look exactly like it does now. add tests for it and keep all the existing tests green"
+  ],
+  "expected_facts": [
+    {
+      "id": "pagination",
+      "description": "Pagination added",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "pagination"
+      }
+    },
+    {
+      "id": "expenses",
+      "description": "GET /expenses modified",
+      "polarity": "must",
+      "kind": "target.modify",
+      "params": {
+        "target_hint": "expenses"
+      }
+    },
+    {
+      "id": "tests",
+      "description": "Tests for pagination",
+      "polarity": "must",
+      "kind": "require.tests_added",
+      "params": {
+        "target_hint": "pagination"
+      }
+    },
+    {
+      "id": "tests-pass",
+      "description": "Existing tests still pass",
+      "polarity": "must",
+      "kind": "constraint.tests_pass",
+      "params": {}
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "dev set: written as held-out by a separate agent; used to build lexicon v2"
+}

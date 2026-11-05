@@ -1,0 +1,8 @@
+# Same bytes on every platform: Git for Windows would otherwise check text
+# files out with CRLF, changing the corpus bases and test fixtures.
+* text=auto eol=lf
+
+# Maintainer-only files: kept in the development repo, left out of
+# `git archive`, which makes the public tree.
+docs/RELEASE_CHECKLIST.md export-ignore
+docs/EXTERNAL_SUITE_PROMPT.md export-ignore

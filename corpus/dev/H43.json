@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "id": "H43",
+  "title": "Cap habit name length",
+  "category": "edit",
+  "language": "js",
+  "stack": "React + Vite (JavaScript)",
+  "base": {
+    "from": "G1"
+  },
+  "first_batch": false,
+  "turns": [
+    "habit names can be stupidly long rn and it breaks the layout. cap them at 40 chars. only touch App.jsx for this, leave streak.js alone"
+  ],
+  "expected_facts": [
+    {
+      "id": "max-40",
+      "description": "Habit names at most 40 characters",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 40,
+        "unit": "characters"
+      }
+    },
+    {
+      "id": "only-app",
+      "description": "Only change App.jsx",
+      "polarity": "must",
+      "kind": "scope.only",
+      "params": {
+        "targets": [
+          "App.jsx"
+        ]
+      }
+    },
+    {
+      "id": "streak-untouched",
+      "description": "Leave streak.js alone",
+      "polarity": "must_not",
+      "kind": "target.unchanged",
+      "params": {
+        "target_hint": "streak.js"
+      }
+    }
+  ],
+  "couldnt_check": [
+    "breaks the layout"
+  ],
+  "traps": [],
+  "notes": "heldout2 (constraint-focused) | moved to dev: its real session's false alarms informed lexicon v3"
+}

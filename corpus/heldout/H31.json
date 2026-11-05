@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "id": "H31",
+  "title": "Person balance endpoint + pagination",
+  "category": "edit",
+  "language": "ts",
+  "stack": "TypeScript + Express + SQLite",
+  "base": {
+    "from": "G2"
+  },
+  "first_batch": false,
+  "turns": [
+    "add a GET /people/:id/balance that returns just that persons balance and who they owe, 404 if the person doesnt exist. also /expenses needs pagination w/ ?page= and ?limit= (default 20, max 100). write tests for both pls. no new deps"
+  ],
+  "expected_facts": [
+    {
+      "id": "route-balance",
+      "description": "New per-person balance endpoint",
+      "polarity": "must",
+      "kind": "route.exists",
+      "params": {
+        "target_hint": "balance"
+      }
+    },
+    {
+      "id": "pagination",
+      "description": "Pagination on /expenses",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "pagination"
+      }
+    },
+    {
+      "id": "mod-expenses",
+      "description": "Change the /expenses list",
+      "polarity": "must",
+      "kind": "target.modify",
+      "params": {
+        "target_hint": "expenses"
+      }
+    },
+    {
+      "id": "tests-balance",
+      "description": "Tests for balance endpoint",
+      "polarity": "must",
+      "kind": "require.tests_added",
+      "params": {
+        "target_hint": "balance"
+      }
+    },
+    {
+      "id": "tests-pagination",
+      "description": "Tests for pagination",
+      "polarity": "must",
+      "kind": "require.tests_added",
+      "params": {
+        "target_hint": "pagination"
+      }
+    },
+    {
+      "id": "no-deps",
+      "description": "No new deps",
+      "polarity": "must",
+      "kind": "constraint.deps_unchanged",
+      "params": {}
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout v2"
+}

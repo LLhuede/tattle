@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "id": "H06",
+  "title": "Kanban board",
+  "category": "greenfield",
+  "language": "ts",
+  "stack": "svelte",
+  "base": null,
+  "first_batch": false,
+  "turns": [
+    "svelte kanban board pls. three columns todo / doing / done and u can drag cards between them. persist to localstorage, no login. cards max 280 characters"
+  ],
+  "expected_facts": [
+    {
+      "id": "stack",
+      "description": "Svelte",
+      "polarity": "must",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "svelte"
+        ]
+      }
+    },
+    {
+      "id": "symbols",
+      "description": "Cards and columns",
+      "polarity": "must",
+      "kind": "symbols",
+      "params": {
+        "value": [
+          "card",
+          "column"
+        ]
+      }
+    },
+    {
+      "id": "drag",
+      "description": "Drag cards between columns",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "drag-and-drop"
+      }
+    },
+    {
+      "id": "browser",
+      "description": "Persist to localStorage",
+      "polarity": "must",
+      "kind": "storage",
+      "params": {
+        "value": "browser"
+      }
+    },
+    {
+      "id": "no-auth",
+      "description": "No login",
+      "polarity": "must_not",
+      "kind": "feature",
+      "params": {
+        "value": "auth"
+      }
+    },
+    {
+      "id": "card-len",
+      "description": "Cards max 280 characters",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 280,
+        "unit": "characters"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "dev set: written as held-out by a separate agent; used to build lexicon v2"
+}

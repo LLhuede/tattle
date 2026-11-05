@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "id": "H15",
+  "title": "Click stats",
+  "category": "edit",
+  "language": "ts",
+  "stack": "express+sqlite",
+  "base": {
+    "from": "G3"
+  },
+  "first_batch": false,
+  "turns": [
+    "add click tracking, count how many times each short link gets visited, and a GET /api/stats/:code that returns the count. dont slow down the redirect if possible. make sure the tests still pass"
+  ],
+  "expected_facts": [
+    {
+      "id": "tracking",
+      "description": "Click counting",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "click-tracking"
+      }
+    },
+    {
+      "id": "route",
+      "description": "GET /api/stats/:code",
+      "polarity": "must",
+      "kind": "route.exists",
+      "params": {
+        "target_hint": "stats"
+      }
+    },
+    {
+      "id": "tests-pass",
+      "description": "Tests still pass",
+      "polarity": "must",
+      "kind": "constraint.tests_pass",
+      "params": {}
+    }
+  ],
+  "couldnt_check": [
+    "dont slow down the redirect if possible"
+  ],
+  "traps": [],
+  "notes": "dev set: written as held-out by a separate agent; used to build lexicon v2"
+}

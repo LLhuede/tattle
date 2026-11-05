@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "id": "H68",
+  "title": "CSV export, deps constraint lifted",
+  "category": "edit",
+  "language": "ts",
+  "stack": "TypeScript + Express + better-sqlite3",
+  "base": {
+    "from": "G2"
+  },
+  "first_batch": false,
+  "turns": [
+    "add a CSV export of all expenses at GET /expenses.csv. dont add any libraries for it",
+    "actually nvm about the libraries, use a csv package if it makes it cleaner, i dont care. also put the names of who it was split between in each row"
+  ],
+  "expected_facts": [
+    {
+      "id": "csv-route",
+      "description": "New GET /expenses.csv",
+      "polarity": "must",
+      "kind": "route.exists",
+      "params": {
+        "target_hint": "csv"
+      }
+    },
+    {
+      "id": "csv-export",
+      "description": "CSV export of expenses",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "csv-export"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout2 (constraint-focused). Turn 2 lifts the no-libraries constraint, so no deps fact"
+}

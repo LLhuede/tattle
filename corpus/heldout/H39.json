@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "id": "H39",
+  "title": "Make the bill API better",
+  "category": "vague",
+  "language": "ts",
+  "stack": "TypeScript + Express + SQLite",
+  "base": {
+    "from": "G2"
+  },
+  "first_batch": false,
+  "turns": [
+    "the bill splitter api feels kinda janky, can u clean it up and make it more robust? idk just make it better. dont break anything tho"
+  ],
+  "expected_facts": [],
+  "couldnt_check": [
+    "kinda janky",
+    "clean it up",
+    "more robust",
+    "make it better",
+    "dont break anything"
+  ],
+  "traps": [],
+  "notes": "heldout v2"
+}

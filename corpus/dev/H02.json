@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "id": "H02",
+  "title": "Pomodoro timer",
+  "category": "greenfield",
+  "language": "ts",
+  "stack": "plain js",
+  "base": null,
+  "first_batch": false,
+  "turns": [
+    "need a tiny pomodoro timer, plain javascript, no frameworks and no build step. 25 min work then 5 min break, loop forever. pop a browser notification when it switches. dont pull in any npm packages"
+  ],
+  "expected_facts": [
+    {
+      "id": "stack",
+      "description": "Plain JavaScript",
+      "polarity": "must",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "javascript"
+        ]
+      }
+    },
+    {
+      "id": "no-framework",
+      "description": "No frameworks",
+      "polarity": "must_not",
+      "kind": "deps.framework",
+      "params": {}
+    },
+    {
+      "id": "work",
+      "description": "25 minute work period",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 25,
+        "unit": "minute"
+      }
+    },
+    {
+      "id": "break",
+      "description": "5 minute break",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 5,
+        "unit": "minute"
+      }
+    },
+    {
+      "id": "notify",
+      "description": "Browser notification on switch",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "notifications"
+      }
+    },
+    {
+      "id": "no-deps",
+      "description": "No npm packages",
+      "polarity": "must",
+      "kind": "constraint.deps_unchanged",
+      "params": {}
+    }
+  ],
+  "couldnt_check": [
+    "tiny"
+  ],
+  "traps": [],
+  "notes": "dev set: written as held-out by a separate agent; used to build lexicon v2"
+}

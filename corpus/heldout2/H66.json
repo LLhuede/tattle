@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "id": "H66",
+  "title": "Uptime checker",
+  "category": "greenfield",
+  "language": "python",
+  "stack": "Python (stdlib)",
+  "base": null,
+  "first_batch": false,
+  "turns": [
+    "python script that checks a list of urls every 10 minutes and emails me if one goes down. stdlib only, dont use requests"
+  ],
+  "expected_facts": [
+    {
+      "id": "python",
+      "description": "Python script",
+      "polarity": "must",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "python"
+        ]
+      }
+    },
+    {
+      "id": "every-10-min",
+      "description": "Check every 10 minutes",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 10,
+        "unit": "minute"
+      }
+    },
+    {
+      "id": "email",
+      "description": "Email on downtime",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "email"
+      }
+    },
+    {
+      "id": "no-new-deps",
+      "description": "Standard library only",
+      "polarity": "must",
+      "kind": "constraint.deps_unchanged",
+      "params": {}
+    },
+    {
+      "id": "no-requests",
+      "description": "Don't use requests",
+      "polarity": "must_not",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "requests"
+        ]
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout2 (constraint-focused)"
+}

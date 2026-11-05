@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "id": "H13",
+  "title": "Delete person endpoint",
+  "category": "edit",
+  "language": "ts",
+  "stack": "express+sqlite",
+  "base": {
+    "from": "G2"
+  },
+  "first_batch": false,
+  "turns": [
+    "add a DELETE /people/:id endpoint. it should refuse with a 409 if that person paid for or is in any expense. dont change settle.ts at all and no new deps"
+  ],
+  "expected_facts": [
+    {
+      "id": "route",
+      "description": "DELETE /people/:id added",
+      "polarity": "must",
+      "kind": "route.exists",
+      "params": {
+        "target_hint": "people"
+      }
+    },
+    {
+      "id": "settle",
+      "description": "settle.ts unchanged",
+      "polarity": "must_not",
+      "kind": "target.unchanged",
+      "params": {
+        "target_hint": "settle"
+      }
+    },
+    {
+      "id": "no-deps",
+      "description": "No new dependencies",
+      "polarity": "must",
+      "kind": "constraint.deps_unchanged",
+      "params": {}
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "dev set: written as held-out by a separate agent; used to build lexicon v2"
+}
