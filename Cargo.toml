@@ -1,0 +1,29 @@
+[workspace]
+resolver = "3"
+members = ["crates/*"]
+
+[workspace.package]
+version = "0.9.0"
+edition = "2024"
+rust-version = "1.89"
+license = "MIT"
+publish = false
+
+[workspace.dependencies]
+anyhow = "1"
+clap = { version = "4", features = ["derive"] }
+regex = "1"
+serde_json = "1"
+sha2 = "0.10"
+tempfile = "3"
+tree-sitter = "0.25"
+tree-sitter-typescript = "0.23"
+capture = { path = "crates/capture" }
+checks = { path = "crates/checks" }
+harness = { path = "crates/harness" }
+exec = { path = "crates/exec" }
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true

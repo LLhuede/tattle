@@ -1,0 +1,32 @@
+{
+  "_help": "defects: findings cv must report. tolerated: accurate but harmless findings. hallucinated: the agent claimed something false. See docs/RECALL_REVIEW.md.",
+  "prompt_id": "R17",
+  "run": 2,
+  "labeller": "ai-review + oracle (see scripts/make_labels.py); checkable defects verified by the lead agent; no human labels yet",
+  "labelled_on": "2026-10-26",
+  "defects": [],
+  "tolerated": [],
+  "hallucinated": true,
+  "hallucination_severity": "low",
+  "statically_checkable": false,
+  "hallucinations": [
+    {
+      "claim": "The `/settle-up` response tests check `personId` and `name` but don't validate that *only* those fields exist ... the tests don't make strict assertions about response shape (manifest: api.test.ts only checks returned ID, not full response shape)",
+      "truth": "api.test.ts:29-36 use toEqual with exact objects, so they are strict. Tests would pass only because app.ts selects 'id, name' explicitly, not for the reason given.",
+      "kind": "wrong-fact",
+      "severity": "low"
+    },
+    {
+      "claim": "manifest: User requested analysis only (cannot run commands) ... Did not make code changes - user requested analysis only",
+      "truth": "The user asked to add the currency field and only said commands can't be run. Agent skipped the change and misdescribed the request.",
+      "kind": "manifest-false-claim",
+      "severity": "low"
+    }
+  ],
+  "outcome": "other",
+  "reviewed": true,
+  "mutation_source": false,
+  "intent_facts": [],
+  "would_accept": null,
+  "notes": ""
+}

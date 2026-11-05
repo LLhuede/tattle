@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "id": "H05",
+  "title": "Photo renamer CLI",
+  "category": "greenfield",
+  "language": "ts",
+  "stack": "node+ts cli",
+  "base": null,
+  "first_batch": false,
+  "turns": [
+    "write a cli in typescript that renames my photos by the date they were taken, e.g. 2024-05-01_001.jpg. dry run by default, only really rename when i pass --apply. skip files with no exif. no dependencies if you can help it, just node"
+  ],
+  "expected_facts": [
+    {
+      "id": "stack",
+      "description": "TypeScript on Node",
+      "polarity": "must",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "typescript",
+          "node"
+        ]
+      }
+    },
+    {
+      "id": "dry-run",
+      "description": "Dry run by default, --apply to rename",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "dry-run"
+      }
+    },
+    {
+      "id": "deps",
+      "description": "Avoid dependencies if possible",
+      "polarity": "prefer",
+      "kind": "constraint.deps_unchanged",
+      "params": {}
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "dev set: written as held-out by a separate agent; used to build lexicon v2"
+}

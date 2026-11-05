@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "id": "H20",
+  "title": "Gym thing",
+  "category": "vague",
+  "language": "ts",
+  "stack": "free",
+  "base": null,
+  "first_batch": false,
+  "turns": [
+    "make me something cool for tracking my gym stuff. modern looking, fast. typescript"
+  ],
+  "expected_facts": [
+    {
+      "id": "stack",
+      "description": "TypeScript",
+      "polarity": "must",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "typescript"
+        ]
+      }
+    }
+  ],
+  "couldnt_check": [
+    "something cool",
+    "gym stuff",
+    "modern looking",
+    "fast"
+  ],
+  "traps": [],
+  "notes": "dev set: written as held-out by a separate agent; used to build lexicon v2"
+}

@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "id": "H27",
+  "title": "Habit tracker dark mode",
+  "category": "edit",
+  "language": "js",
+  "stack": "React + Vite (JavaScript)",
+  "base": {
+    "from": "G1"
+  },
+  "first_batch": false,
+  "turns": [
+    "add a dark mode to the habit tracker. should follow the system setting by default but have a toggle up the top to override it, and remember the choice in localstorage. dont add any new packages, css variables is enough. and leave the streak logic alone its fine"
+  ],
+  "expected_facts": [
+    {
+      "id": "dark",
+      "description": "Dark mode with toggle",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "dark-mode"
+      }
+    },
+    {
+      "id": "storage-browser",
+      "description": "Theme choice saved in localStorage",
+      "polarity": "must",
+      "kind": "storage",
+      "params": {
+        "value": "browser"
+      }
+    },
+    {
+      "id": "no-deps",
+      "description": "No new packages",
+      "polarity": "must",
+      "kind": "constraint.deps_unchanged",
+      "params": {}
+    },
+    {
+      "id": "streak-unchanged",
+      "description": "Streak logic not changed",
+      "polarity": "must_not",
+      "kind": "target.unchanged",
+      "params": {
+        "target_hint": "streak"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout v2"
+}

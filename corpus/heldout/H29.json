@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "id": "H29",
+  "title": "Rename habits, JSON export/import",
+  "category": "edit",
+  "language": "js",
+  "stack": "React + Vite (JavaScript)",
+  "base": {
+    "from": "G1"
+  },
+  "first_batch": false,
+  "turns": [
+    "can you let me rename a habit by double clicking its name. also add an export button that downloads all my habits + ticks as json, and an import that loads that json back in so i can move to my other laptop. dont change how stuff gets saved in localstorage, my existing data has to keep working. cap habit names at 40 characters"
+  ],
+  "expected_facts": [
+    {
+      "id": "rename",
+      "description": "Rename a habit by double-clicking",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "rename-habit"
+      }
+    },
+    {
+      "id": "json-export",
+      "description": "Export habits as JSON",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "json-export"
+      }
+    },
+    {
+      "id": "json-import",
+      "description": "Import habits from JSON",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "json-import"
+      }
+    },
+    {
+      "id": "storage-unchanged",
+      "description": "localStorage format unchanged",
+      "polarity": "must_not",
+      "kind": "target.unchanged",
+      "params": {
+        "target_hint": "localstorage"
+      }
+    },
+    {
+      "id": "name-40",
+      "description": "Habit name max 40 characters",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 40,
+        "unit": "characters"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout v2"
+}

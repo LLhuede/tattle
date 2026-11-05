@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "id": "H40",
+  "title": "Wedding planning board",
+  "category": "vague",
+  "language": "ts",
+  "stack": "unspecified",
+  "base": null,
+  "first_batch": false,
+  "turns": [
+    "make me something like trello but simpler, for me and my gf to plan our wedding stuff. should look nice and be easy to use on my phone. drag and drop would be cool"
+  ],
+  "expected_facts": [
+    {
+      "id": "dnd",
+      "description": "Drag and drop (would be cool)",
+      "polarity": "prefer",
+      "kind": "feature",
+      "params": {
+        "value": "drag-and-drop"
+      }
+    }
+  ],
+  "couldnt_check": [
+    "like trello but simpler",
+    "look nice",
+    "easy to use on my phone"
+  ],
+  "traps": [],
+  "notes": "heldout v2"
+}

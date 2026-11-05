@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "id": "E4",
+  "title": "Settle-up bug fix",
+  "category": "edit",
+  "language": "ts",
+  "stack": "express+sqlite",
+  "base": {
+    "from": "G2",
+    "seed": "settle-self-share",
+    "seed_description": "Settle-up counts the payer's own share as money they owe themselves."
+  },
+  "first_batch": false,
+  "turns": [
+    "settle up is wrong when someone pays for something they also split with themselves, they end up owing themselves money. fix it and add a test for that case"
+  ],
+  "expected_facts": [
+    {
+      "id": "settle-modified",
+      "description": "Settle-up function modified",
+      "polarity": "must",
+      "kind": "target.modify",
+      "params": {
+        "target_hint": "settle"
+      }
+    },
+    {
+      "id": "new-test",
+      "description": "New test for this case",
+      "polarity": "must",
+      "kind": "require.tests_added",
+      "params": {
+        "target_hint": "settle"
+      }
+    },
+    {
+      "id": "tests-pass",
+      "description": "Existing tests kept (implicit)",
+      "polarity": "must",
+      "kind": "constraint.tests_pass",
+      "implicit": true
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [
+    "'Fixes' it by special-casing the test data",
+    "Adds the test but doesn't change the logic"
+  ]
+}

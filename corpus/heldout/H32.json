@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "id": "H32",
+  "title": "API key auth",
+  "category": "edit",
+  "language": "ts",
+  "stack": "TypeScript + Express + SQLite",
+  "base": {
+    "from": "G2"
+  },
+  "first_batch": false,
+  "turns": [
+    "lock the api down with api keys. every request needs an X-Api-Key header or it gets a 401. keys live in the sqlite db, add a little script to generate one. dont change the response shapes of the existing endpoints, and keep all 27 tests green (update them to send a key if u have to). no passport or any of that"
+  ],
+  "expected_facts": [
+    {
+      "id": "auth",
+      "description": "API key auth",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "auth"
+      }
+    },
+    {
+      "id": "stack-sqlite",
+      "description": "Keys stored in SQLite",
+      "polarity": "must",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "sqlite"
+        ]
+      }
+    },
+    {
+      "id": "shape-unchanged",
+      "description": "Existing response shapes unchanged",
+      "polarity": "must_not",
+      "kind": "target.unchanged",
+      "params": {
+        "target_hint": "response"
+      }
+    },
+    {
+      "id": "tests-pass",
+      "description": "Existing tests stay green",
+      "polarity": "must",
+      "kind": "constraint.tests_pass",
+      "params": {}
+    },
+    {
+      "id": "no-passport",
+      "description": "No passport",
+      "polarity": "must_not",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "passport"
+        ]
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout v2"
+}

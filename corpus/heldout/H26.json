@@ -1,0 +1,124 @@
+{
+  "schema": 1,
+  "id": "H26",
+  "title": "Markdown blog in Next",
+  "category": "greenfield",
+  "language": "ts",
+  "stack": "Next.js, markdown files, CSS modules",
+  "base": null,
+  "first_batch": false,
+  "turns": [
+    "set up a blog w/ next.js, posts are just markdown files in a /posts folder. need a table of contents on each post built from the headings, a dark mode toggle, and an rss feed. no database, no cms. dont use tailwind, plain css modules is fine. reading time on each post would be nice too (assume 200 words a minute)"
+  ],
+  "expected_facts": [
+    {
+      "id": "stack-next",
+      "description": "Next.js",
+      "polarity": "must",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "next"
+        ]
+      }
+    },
+    {
+      "id": "storage-file",
+      "description": "Posts stored as markdown files",
+      "polarity": "must",
+      "kind": "storage",
+      "params": {
+        "value": "file"
+      }
+    },
+    {
+      "id": "sym-post",
+      "description": "Posts",
+      "polarity": "must",
+      "kind": "symbols",
+      "params": {
+        "value": [
+          "post"
+        ]
+      }
+    },
+    {
+      "id": "toc",
+      "description": "Table of contents per post",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "toc"
+      }
+    },
+    {
+      "id": "dark",
+      "description": "Dark mode toggle",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "dark-mode"
+      }
+    },
+    {
+      "id": "rss",
+      "description": "RSS feed",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "rss-feed"
+      }
+    },
+    {
+      "id": "no-db",
+      "description": "No database",
+      "polarity": "must_not",
+      "kind": "feature",
+      "params": {
+        "value": "database"
+      }
+    },
+    {
+      "id": "no-cms",
+      "description": "No CMS",
+      "polarity": "must_not",
+      "kind": "feature",
+      "params": {
+        "value": "cms"
+      }
+    },
+    {
+      "id": "no-tailwind",
+      "description": "No Tailwind",
+      "polarity": "must_not",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "tailwind"
+        ]
+      }
+    },
+    {
+      "id": "reading-time",
+      "description": "Reading time (nice to have)",
+      "polarity": "prefer",
+      "kind": "feature",
+      "params": {
+        "value": "reading-time"
+      }
+    },
+    {
+      "id": "wpm",
+      "description": "200 words per minute",
+      "polarity": "prefer",
+      "kind": "param.literal",
+      "params": {
+        "value": 200,
+        "unit": "minute"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout v2"
+}

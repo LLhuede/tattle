@@ -1,0 +1,19 @@
+{
+  "name": "tattle",
+  "displayName": "tattle",
+  "version": "0.9.0",
+  "description": "Catches your AI agent's hallucinations: checks Claude's claims (\"tests pass\", \"fixed\", \"done\") against what you asked and what actually happened. Runs locally; no AI, no network.",
+  "author": {
+    "name": "LLhuede"
+  },
+  "repository": "https://github.com/LLhuede/tattle",
+  "license": "MIT",
+  "keywords": [
+    "verification",
+    "tests",
+    "claude-code",
+    "agents",
+    "hallucination",
+    "code-review"
+  ]
+}

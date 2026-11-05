@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "id": "H33",
+  "title": "Duplicate split bug + rate limit",
+  "category": "edit",
+  "language": "ts",
+  "stack": "TypeScript + Express + SQLite",
+  "base": {
+    "from": "G2"
+  },
+  "first_batch": false,
+  "turns": [
+    "two things. 1) settle up gives weird numbers when someone is in splitBetween twice, like [1,1,2]. pretty sure its double counting them, fix that. 2) add rate limiting, 60 requests a minute per ip, send back 429 when theyre over. only change app.ts and settle.ts, dont touch db.ts"
+  ],
+  "expected_facts": [
+    {
+      "id": "fix-settle",
+      "description": "Fix settle-up double counting",
+      "polarity": "must",
+      "kind": "target.modify",
+      "params": {
+        "target_hint": "settle"
+      }
+    },
+    {
+      "id": "rate-limit",
+      "description": "Rate limiting",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "rate-limiting"
+      }
+    },
+    {
+      "id": "rate-60",
+      "description": "60 requests per minute",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 60,
+        "unit": "minute"
+      }
+    },
+    {
+      "id": "per-ip",
+      "description": "Limit per IP",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": "ip",
+        "unit": "per"
+      }
+    },
+    {
+      "id": "scope",
+      "description": "Only app.ts and settle.ts",
+      "polarity": "must",
+      "kind": "scope.only",
+      "params": {
+        "targets": [
+          "app.ts",
+          "settle.ts"
+        ]
+      }
+    },
+    {
+      "id": "db-unchanged",
+      "description": "db.ts unchanged",
+      "polarity": "must_not",
+      "kind": "target.unchanged",
+      "params": {
+        "target_hint": "db.ts"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout v2"
+}

@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "id": "H60",
+  "title": "Evening reminder notification",
+  "category": "edit",
+  "language": "js",
+  "stack": "React + Vite (JavaScript)",
+  "base": {
+    "from": "G1"
+  },
+  "first_batch": false,
+  "turns": [
+    "can it send me a browser notification every day at 8pm if i havent ticked everything off yet. use the plain Notification API - no service worker and no packages"
+  ],
+  "expected_facts": [
+    {
+      "id": "notifications",
+      "description": "Browser notification reminder",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "notifications"
+      }
+    },
+    {
+      "id": "at-8pm",
+      "description": "Every day at 8pm",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 20,
+        "unit": "time"
+      }
+    },
+    {
+      "id": "no-sw",
+      "description": "No service worker",
+      "polarity": "must_not",
+      "kind": "feature",
+      "params": {
+        "value": "service-worker"
+      }
+    },
+    {
+      "id": "no-new-deps",
+      "description": "No packages",
+      "polarity": "must",
+      "kind": "constraint.deps_unchanged",
+      "params": {}
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout2 (constraint-focused)"
+}

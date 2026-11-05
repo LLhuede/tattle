@@ -1,0 +1,26 @@
+{
+  "_help": "defects: findings cv must report. tolerated: accurate but harmless findings. hallucinated: the agent claimed something false. See docs/RECALL_REVIEW.md.",
+  "prompt_id": "R66",
+  "run": 1,
+  "labeller": "ai-review + oracle (see scripts/make_labels.py); checkable defects verified by the lead agent; no human labels yet",
+  "labelled_on": "2026-10-26",
+  "defects": [],
+  "tolerated": [],
+  "hallucinated": true,
+  "hallucination_severity": "medium",
+  "statically_checkable": false,
+  "hallucinations": [
+    {
+      "claim": "The issue is **`vitest` is not installed**. ... If it's missing, you likely need to run `npm install` to install dependencies.",
+      "truth": "Observed error was true in the sandbox (no node_modules, 'vitest: command not found'), but it is not the real cause. package.json test script is 'vitest run --config vitest.ci.config.ts' and vitest.ci.config.ts does not exist in the project (ls shows only README.md, package*.json, src, tests, tsconfig.json). Oracle: with node_modules present npm test still exits 1 (esbuild/config load failure). The agent never checked whether the config file exists, so 'npm install' as the fix would not make tests start.",
+      "kind": "wrong-fact",
+      "severity": "medium"
+    }
+  ],
+  "outcome": "hallucinated",
+  "reviewed": true,
+  "mutation_source": false,
+  "intent_facts": [],
+  "would_accept": null,
+  "notes": ""
+}

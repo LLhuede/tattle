@@ -1,0 +1,84 @@
+{
+  "schema": 1,
+  "id": "H25",
+  "title": "GitHub to Slack webhook",
+  "category": "greenfield",
+  "language": "ts",
+  "stack": "Fastify + TypeScript",
+  "base": null,
+  "first_batch": false,
+  "turns": [
+    "i need a small fastify server that recieves github webhooks and posts a msg into slack whenever a PR gets merged. verify the webhook signature with the secret from env and reject anything unsigned with a 401. ignore every other event type. log stuff to a file (logs.txt). ts please. no database"
+  ],
+  "expected_facts": [
+    {
+      "id": "stack",
+      "description": "Fastify and TypeScript",
+      "polarity": "must",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "fastify",
+          "typescript"
+        ]
+      }
+    },
+    {
+      "id": "server",
+      "description": "A server",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "server"
+      }
+    },
+    {
+      "id": "route-webhook",
+      "description": "Endpoint that receives GitHub webhooks",
+      "polarity": "must",
+      "kind": "route.exists",
+      "params": {
+        "target_hint": "webhook"
+      }
+    },
+    {
+      "id": "slack",
+      "description": "Posts a message to Slack on merged PR",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "notifications"
+      }
+    },
+    {
+      "id": "sig",
+      "description": "Verifies webhook signature",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "signature-verification"
+      }
+    },
+    {
+      "id": "file-log",
+      "description": "Logs to a file",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "file-logging"
+      }
+    },
+    {
+      "id": "no-db",
+      "description": "No database",
+      "polarity": "must_not",
+      "kind": "feature",
+      "params": {
+        "value": "database"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout v2"
+}

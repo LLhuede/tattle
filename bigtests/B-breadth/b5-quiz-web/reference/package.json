@@ -1,0 +1,13 @@
+{
+  "name": "flashcards",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "node build.mjs",
+    "test": "node --test"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}

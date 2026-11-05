@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "id": "H07",
+  "title": "Filter habits by name",
+  "category": "edit",
+  "language": "ts",
+  "stack": "react+vite",
+  "base": {
+    "from": "G1"
+  },
+  "first_batch": false,
+  "turns": [
+    "add a search box above the habit list that filters by name as you type. only touch App.jsx and App.css, and dont add any libraries for it"
+  ],
+  "expected_facts": [
+    {
+      "id": "search",
+      "description": "Search/filter box",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "search"
+      }
+    },
+    {
+      "id": "scope",
+      "description": "Only App.jsx and App.css change",
+      "polarity": "must",
+      "kind": "scope.only",
+      "params": {
+        "targets": [
+          "App.jsx",
+          "App.css"
+        ]
+      }
+    },
+    {
+      "id": "no-deps",
+      "description": "No new libraries",
+      "polarity": "must",
+      "kind": "constraint.deps_unchanged",
+      "params": {}
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "dev set: written as held-out by a separate agent; used to build lexicon v2"
+}

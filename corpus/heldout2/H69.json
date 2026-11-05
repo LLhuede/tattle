@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "id": "H69",
+  "title": "Code length change reverted",
+  "category": "edit",
+  "language": "ts",
+  "stack": "TypeScript + Express + better-sqlite3",
+  "base": {
+    "from": "G3"
+  },
+  "first_batch": false,
+  "turns": [
+    "make the short codes 8 chars instead of 6 and fix the tests",
+    "hmm wait no, scrap that. keep codes at 6 and leave code.ts alone entirely. just add a GET /api/health route that returns {ok: true} instead"
+  ],
+  "expected_facts": [
+    {
+      "id": "health-route",
+      "description": "New GET /api/health",
+      "polarity": "must",
+      "kind": "route.exists",
+      "params": {
+        "target_hint": "health"
+      }
+    },
+    {
+      "id": "len-6",
+      "description": "Codes stay 6 characters",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 6,
+        "unit": "characters"
+      }
+    },
+    {
+      "id": "code-untouched",
+      "description": "Leave code.ts alone",
+      "polarity": "must_not",
+      "kind": "target.unchanged",
+      "params": {
+        "target_hint": "code.ts"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout2 (constraint-focused). Turn 2 reverses the 8-char change; 6 is restated explicitly"
+}

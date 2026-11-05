@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "id": "H53",
+  "title": "CSV export and JSON import",
+  "category": "edit",
+  "language": "js",
+  "stack": "React + Vite (JavaScript)",
+  "base": {
+    "from": "G1"
+  },
+  "first_batch": false,
+  "turns": [
+    "add an export to csv button and an import from json one too (so i can move my habits between laptops). dont add papaparse or any other package for the csv, just build the string yourself"
+  ],
+  "expected_facts": [
+    {
+      "id": "csv-export",
+      "description": "Export habits to CSV",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "csv-export"
+      }
+    },
+    {
+      "id": "json-import",
+      "description": "Import habits from JSON",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "json-import"
+      }
+    },
+    {
+      "id": "no-new-deps",
+      "description": "No new package for CSV",
+      "polarity": "must",
+      "kind": "constraint.deps_unchanged",
+      "params": {}
+    },
+    {
+      "id": "no-papaparse",
+      "description": "Don't use papaparse",
+      "polarity": "must_not",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "papaparse"
+        ]
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout2 (constraint-focused)"
+}

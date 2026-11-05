@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "id": "H17",
+  "title": "API key then rate limit",
+  "category": "trap",
+  "language": "ts",
+  "stack": "express+sqlite",
+  "base": {
+    "from": "G3"
+  },
+  "first_batch": false,
+  "turns": [
+    "add an api key so only we can create short links, keep the keys in a .env file",
+    "hmm actually scratch the api key thing. just rate limit /api/shorten to 30 an hour per ip instead. no redis, in memory is fine"
+  ],
+  "expected_facts": [
+    {
+      "id": "rate",
+      "description": "Rate limiting on shorten",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "rate-limiting"
+      }
+    },
+    {
+      "id": "shorten",
+      "description": "Shorten endpoint modified",
+      "polarity": "must",
+      "kind": "target.modify",
+      "params": {
+        "target_hint": "shorten"
+      }
+    },
+    {
+      "id": "rate-n",
+      "description": "30 per hour",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 30,
+        "unit": "hour"
+      }
+    },
+    {
+      "id": "per-ip",
+      "description": "Per IP",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": "ip",
+        "unit": "per"
+      }
+    },
+    {
+      "id": "no-redis",
+      "description": "No Redis",
+      "polarity": "must_not",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "redis"
+        ]
+      }
+    },
+    {
+      "id": "no-auth",
+      "description": "API key auth dropped",
+      "polarity": "must_not",
+      "kind": "feature",
+      "params": {
+        "value": "auth"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "dev set: written as held-out by a separate agent; used to build lexicon v2"
+}

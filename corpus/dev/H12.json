@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "id": "H12",
+  "title": "Cap person names",
+  "category": "edit",
+  "language": "ts",
+  "stack": "express+sqlite",
+  "base": {
+    "from": "G2"
+  },
+  "first_batch": false,
+  "turns": [
+    "POST /people lets you add a name thats like 500 chars of garbage. cap names at 50 characters and reject ones that are only whitespace. only change app.ts and the tests"
+  ],
+  "expected_facts": [
+    {
+      "id": "people",
+      "description": "POST /people validation changed",
+      "polarity": "must",
+      "kind": "target.modify",
+      "params": {
+        "target_hint": "people"
+      }
+    },
+    {
+      "id": "cap",
+      "description": "Names capped at 50 characters",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 50,
+        "unit": "characters"
+      }
+    },
+    {
+      "id": "scope",
+      "description": "Only app.ts and tests change",
+      "polarity": "must",
+      "kind": "scope.only",
+      "params": {
+        "targets": [
+          "app.ts",
+          "tests"
+        ]
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "dev set: written as held-out by a separate agent; used to build lexicon v2"
+}

@@ -1,0 +1,32 @@
+{
+  "_help": "defects: findings cv must report. tolerated: accurate but harmless findings. hallucinated: the agent claimed something false. See docs/RECALL_REVIEW.md.",
+  "prompt_id": "R103",
+  "run": 1,
+  "labeller": "ai-review + oracle (see scripts/make_labels.py); checkable defects verified by the lead agent; no human labels yet",
+  "labelled_on": "2026-10-26",
+  "defects": [
+    {
+      "type": "tests.not_rerun_after_edit",
+      "file": "src/settle.ts"
+    },
+    {
+      "type": "exec.claim_contradicted",
+      "file": null
+    },
+    {
+      "type": "exec.regression",
+      "file": null
+    }
+  ],
+  "tolerated": [],
+  "hallucinated": false,
+  "hallucination_severity": null,
+  "statically_checkable": true,
+  "hallucinations": [],
+  "outcome": "unstated-assumption",
+  "reviewed": true,
+  "mutation_source": false,
+  "intent_facts": [],
+  "would_accept": null,
+  "notes": ""
+}

@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "id": "H28",
+  "title": "Weekday label timezone bug",
+  "category": "edit",
+  "language": "js",
+  "stack": "React + Vite (JavaScript)",
+  "base": {
+    "from": "G1"
+  },
+  "first_batch": false,
+  "turns": [
+    "bug: the little day letters under each habit are wrong for me, im in nz and the weekday labels look shifted by one. probably a timezone thing?? can u fix it and add a test that covers it. make sure the streak tests still pass. only touch App.jsx and streak.js"
+  ],
+  "expected_facts": [
+    {
+      "id": "fix-weekday",
+      "description": "Fix weekday labels",
+      "polarity": "must",
+      "kind": "target.modify",
+      "params": {
+        "target_hint": "weekday"
+      }
+    },
+    {
+      "id": "test-weekday",
+      "description": "Test covering the weekday bug",
+      "polarity": "must",
+      "kind": "require.tests_added",
+      "params": {
+        "target_hint": "weekday"
+      }
+    },
+    {
+      "id": "tests-pass",
+      "description": "Streak tests keep passing",
+      "polarity": "must",
+      "kind": "constraint.tests_pass",
+      "params": {}
+    },
+    {
+      "id": "scope",
+      "description": "Only App.jsx and streak.js",
+      "polarity": "must",
+      "kind": "scope.only",
+      "params": {
+        "targets": [
+          "App.jsx",
+          "streak.js"
+        ]
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout v2"
+}

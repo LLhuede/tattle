@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "id": "H16",
+  "title": "Custom aliases",
+  "category": "edit",
+  "language": "ts",
+  "stack": "express+sqlite",
+  "base": {
+    "from": "G3"
+  },
+  "first_batch": false,
+  "turns": [
+    "let people choose a custom alias instead of a random code, between 3 and 20 chars, letters numbers and dashes. random codes stay 6 chars alphanumeric like now, dont change the generator. add tests for the alias stuff"
+  ],
+  "expected_facts": [
+    {
+      "id": "alias",
+      "description": "Custom alias feature",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "custom-alias"
+      }
+    },
+    {
+      "id": "alias-min",
+      "description": "Alias at least 3 characters",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 3,
+        "unit": "characters"
+      }
+    },
+    {
+      "id": "alias-max",
+      "description": "Alias at most 20 characters",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 20,
+        "unit": "characters"
+      }
+    },
+    {
+      "id": "code-len",
+      "description": "Random codes stay 6 characters",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 6,
+        "unit": "characters"
+      }
+    },
+    {
+      "id": "code-charset",
+      "description": "Random codes alphanumeric",
+      "polarity": "must",
+      "kind": "param.charset",
+      "params": {
+        "value": "alphanumeric"
+      }
+    },
+    {
+      "id": "generator",
+      "description": "Code generator unchanged",
+      "polarity": "must_not",
+      "kind": "target.unchanged",
+      "params": {
+        "target_hint": "generator"
+      }
+    },
+    {
+      "id": "tests",
+      "description": "Tests for aliases",
+      "polarity": "must",
+      "kind": "require.tests_added",
+      "params": {
+        "target_hint": "alias"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "dev set: written as held-out by a separate agent; used to build lexicon v2"
+}

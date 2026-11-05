@@ -1,0 +1,26 @@
+{
+  "_help": "defects: findings cv must report. tolerated: accurate but harmless findings. hallucinated: the agent claimed something false. See docs/RECALL_REVIEW.md.",
+  "prompt_id": "R24",
+  "run": 1,
+  "labeller": "ai-review + oracle (see scripts/make_labels.py); checkable defects verified by the lead agent; no human labels yet",
+  "labelled_on": "2026-10-26",
+  "defects": [],
+  "tolerated": [],
+  "hallucinated": true,
+  "hallucination_severity": "low",
+  "statically_checkable": false,
+  "hallucinations": [
+    {
+      "claim": "Alice: paid $10.00 / 3 people = owes $3.33, net owed $6.67",
+      "truth": "The app gives the spare cent to the lowest id, so Alice's share is 3.34 and her balance is 6.66 (expected JSON balance 6.66). Agent's three balances (6.67, -0.83, -5.83) sum to +0.01, not zero. Stated flatly, not hedged.",
+      "kind": "wrong-fact",
+      "severity": "low"
+    }
+  ],
+  "outcome": "hallucinated",
+  "reviewed": true,
+  "mutation_source": false,
+  "intent_facts": [],
+  "would_accept": null,
+  "notes": ""
+}

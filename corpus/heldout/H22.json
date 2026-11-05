@@ -1,0 +1,108 @@
+{
+  "schema": 1,
+  "id": "H22",
+  "title": "Hardware shop inventory",
+  "category": "greenfield",
+  "language": "ts",
+  "stack": "React + Vite + Express + Postgres",
+  "base": null,
+  "first_batch": false,
+  "turns": [
+    "need a lil inventory tracker for my dads hardware shop. react + vite frontend, express backend w/ postgres. items have a name, sku, qty and a reorder level, show a warning when qty drops below the reorder level. needs a login cause his employees are gonna use it. add search by name or sku and paginate the list (25 a page is fine). exporting to csv would be sick too if its not heaps of work. no tailwind pls i hate it"
+  ],
+  "expected_facts": [
+    {
+      "id": "stack",
+      "description": "React, Vite, Express, Postgres",
+      "polarity": "must",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "react",
+          "vite",
+          "express",
+          "postgres"
+        ]
+      }
+    },
+    {
+      "id": "server",
+      "description": "Has an Express backend",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "server"
+      }
+    },
+    {
+      "id": "sym-item",
+      "description": "Inventory items",
+      "polarity": "must",
+      "kind": "symbols",
+      "params": {
+        "value": [
+          "item"
+        ]
+      }
+    },
+    {
+      "id": "low-stock",
+      "description": "Warning when qty below reorder level",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "low-stock-warning"
+      }
+    },
+    {
+      "id": "auth",
+      "description": "Login for employees",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "auth"
+      }
+    },
+    {
+      "id": "search",
+      "description": "Search by name or sku",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "search"
+      }
+    },
+    {
+      "id": "pagination",
+      "description": "Paginated list",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "pagination"
+      }
+    },
+    {
+      "id": "csv",
+      "description": "CSV export if not much work",
+      "polarity": "prefer",
+      "kind": "feature",
+      "params": {
+        "value": "csv-export"
+      }
+    },
+    {
+      "id": "no-tailwind",
+      "description": "No Tailwind",
+      "polarity": "must_not",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "tailwind"
+        ]
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout v2"
+}

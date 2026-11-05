@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "id": "G4",
+  "title": "Markdown notes to HTML CLI",
+  "category": "greenfield",
+  "language": "ts",
+  "stack": "node-cli",
+  "base": null,
+  "first_batch": false,
+  "turns": [
+    "i have a folder full of markdown notes. write a little command line tool that turns the whole folder into one html page with a table of contents at the top. node, no frameworks. it should skip files starting with an underscore"
+  ],
+  "expected_facts": [
+    {
+      "id": "stack",
+      "description": "Node command-line tool",
+      "polarity": "must",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "node"
+        ]
+      }
+    },
+    {
+      "id": "no-frameworks",
+      "description": "No frameworks (a markdown parser is a grey area)",
+      "polarity": "must_not",
+      "kind": "deps.framework"
+    },
+    {
+      "id": "toc",
+      "description": "Table of contents generated",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "toc"
+      }
+    },
+    {
+      "id": "skip-underscore",
+      "description": "Skips files starting with _",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": "_"
+      }
+    }
+  ],
+  "couldnt_check": [
+    "little"
+  ],
+  "traps": [
+    "Pulls in a big framework",
+    "Ignores the underscore rule"
+  ],
+  "notes": "Tests how strict 'no frameworks' is. Label carefully."
+}

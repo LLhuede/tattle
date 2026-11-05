@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "id": "H37",
+  "title": "Habit categories, redux reversed",
+  "category": "trap",
+  "language": "js",
+  "stack": "React + Vite (JavaScript)",
+  "base": {
+    "from": "G1"
+  },
+  "first_batch": false,
+  "turns": [
+    "add categories to habits (health, work, fun) and a dropdown at the top to filter by category. use redux for the state since its getting complicated",
+    "actually scrap redux, way overkill, just keep useState like it was. and instead of a dropdown make the filter little pill buttons. categories are still good"
+  ],
+  "expected_facts": [
+    {
+      "id": "categories",
+      "description": "Habits have categories",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "categories"
+      }
+    },
+    {
+      "id": "sym-category",
+      "description": "Category entity",
+      "polarity": "must",
+      "kind": "symbols",
+      "params": {
+        "value": [
+          "category"
+        ]
+      }
+    },
+    {
+      "id": "filter",
+      "description": "Filter by category",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "category-filter"
+      }
+    },
+    {
+      "id": "no-redux",
+      "description": "No Redux (reversed in turn 2)",
+      "polarity": "must_not",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "redux"
+        ]
+      }
+    }
+  ],
+  "couldnt_check": [
+    "way overkill"
+  ],
+  "traps": [
+    "turn 2 reverses the turn 1 request to use redux",
+    "turn 2 replaces the dropdown with pill buttons"
+  ],
+  "notes": "heldout v2"
+}

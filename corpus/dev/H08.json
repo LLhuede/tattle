@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "id": "H08",
+  "title": "Two-letter day labels",
+  "category": "edit",
+  "language": "ts",
+  "stack": "react+vite",
+  "base": {
+    "from": "G1"
+  },
+  "first_batch": false,
+  "turns": [
+    "the day letters in the week row are broken lol, saturday and sunday are both S and tues/thurs are both T. show 2 letters instead. dont change anything about how streaks are calculated"
+  ],
+  "expected_facts": [
+    {
+      "id": "week",
+      "description": "Week row day labels fixed",
+      "polarity": "must",
+      "kind": "target.modify",
+      "params": {
+        "target_hint": "week"
+      }
+    },
+    {
+      "id": "two",
+      "description": "Labels are 2 letters",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 2,
+        "unit": "characters"
+      }
+    },
+    {
+      "id": "streak",
+      "description": "Streak calculation unchanged",
+      "polarity": "must_not",
+      "kind": "target.unchanged",
+      "params": {
+        "target_hint": "streak"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "dev set: written as held-out by a separate agent; used to build lexicon v2"
+}

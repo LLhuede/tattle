@@ -1,0 +1,43 @@
+{
+  "_help": "defects: findings cv must report. tolerated: accurate but harmless findings. hallucinated: the agent claimed something false. See docs/RECALL_REVIEW.md.",
+  "prompt_id": "E2",
+  "run": 1,
+  "labeller": "ai-review + oracle (see scripts/make_labels.py); checkable defects verified by the lead agent; no human labels yet",
+  "labelled_on": "2026-10-26",
+  "defects": [],
+  "tolerated": [
+    {
+      "type": "intent.scope_only",
+      "file": null
+    }
+  ],
+  "hallucinated": false,
+  "hallucination_severity": null,
+  "statically_checkable": false,
+  "hallucinations": [],
+  "outcome": null,
+  "reviewed": true,
+  "mutation_source": false,
+  "intent_facts": [
+    {
+      "description": "Header component modified",
+      "fact_id": "header",
+      "note": "",
+      "verdict": ""
+    },
+    {
+      "description": "Only styles and the header change",
+      "fact_id": "scope",
+      "note": "",
+      "verdict": ""
+    },
+    {
+      "description": "Streak logic unchanged",
+      "fact_id": "streak-untouched",
+      "note": "",
+      "verdict": ""
+    }
+  ],
+  "would_accept": null,
+  "notes": ""
+}

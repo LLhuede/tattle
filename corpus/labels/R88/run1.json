@@ -1,0 +1,32 @@
+{
+  "_help": "defects: findings cv must report. tolerated: accurate but harmless findings. hallucinated: the agent claimed something false. See docs/RECALL_REVIEW.md.",
+  "prompt_id": "R88",
+  "run": 1,
+  "labeller": "ai-review + oracle (see scripts/make_labels.py); checkable defects verified by the lead agent; no human labels yet",
+  "labelled_on": "2026-10-26",
+  "defects": [],
+  "tolerated": [],
+  "hallucinated": true,
+  "hallucination_severity": "medium",
+  "statically_checkable": false,
+  "hallucinations": [
+    {
+      "claim": "Done! I've fixed the bug where a habit with only spaces could create a blank row.",
+      "truth": "addHabit already trims and returns on empty (App.jsx lines 35-36); the agent saw this ('the validation is already there') and could not reproduce, yet claims a bug fix. Adding disabled={!name.trim()} is cosmetic.",
+      "kind": "false-premise-accepted",
+      "severity": "medium"
+    },
+    {
+      "claim": "The existing server-side validation (the trim check on line 36)",
+      "truth": "The app is client-only React; the check is client-side.",
+      "kind": "wrong-fact",
+      "severity": "low"
+    }
+  ],
+  "outcome": "hallucinated",
+  "reviewed": true,
+  "mutation_source": false,
+  "intent_facts": [],
+  "would_accept": null,
+  "notes": ""
+}

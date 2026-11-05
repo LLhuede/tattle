@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "id": "E2",
+  "title": "Dark mode toggle",
+  "category": "edit",
+  "language": "ts",
+  "stack": "react+vite",
+  "base": {
+    "from": "G1"
+  },
+  "first_batch": true,
+  "turns": [
+    "add a dark mode toggle in the header. only change the styling and the header component, dont touch the streak logic"
+  ],
+  "expected_facts": [
+    {
+      "id": "dark-mode",
+      "description": "Dark mode toggle added",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "dark-mode"
+      }
+    },
+    {
+      "id": "header",
+      "description": "Header component modified",
+      "polarity": "must",
+      "kind": "target.modify",
+      "params": {
+        "target_hint": "Header"
+      }
+    },
+    {
+      "id": "scope",
+      "description": "Only styles and the header change",
+      "polarity": "must",
+      "kind": "scope.only",
+      "params": {
+        "targets": [
+          "styles",
+          "Header"
+        ]
+      }
+    },
+    {
+      "id": "streak-untouched",
+      "description": "Streak logic unchanged",
+      "polarity": "must_not",
+      "kind": "target.unchanged",
+      "params": {
+        "target_hint": "streak"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [
+    "'Tidies up' the streak file",
+    "Touches App/state files to wire a theme context (grey area: label it)"
+  ],
+  "notes": "Main scope test, and a good false-alarm probe."
+}

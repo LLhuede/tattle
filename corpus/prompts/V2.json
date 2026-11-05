@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "id": "V2",
+  "title": "Half vague, half checkable",
+  "category": "vague",
+  "language": "ts",
+  "stack": "express+sqlite",
+  "base": {
+    "from": "G3"
+  },
+  "first_batch": false,
+  "turns": [
+    "clean up the code a bit and make it more professional. dont change how the api works"
+  ],
+  "expected_facts": [
+    {
+      "id": "api-unchanged",
+      "description": "Public API unchanged (routes, response shapes)",
+      "polarity": "must_not",
+      "kind": "target.unchanged",
+      "params": {
+        "target_hint": "routes"
+      }
+    }
+  ],
+  "couldnt_check": [
+    "clean up the code a bit",
+    "make it more professional"
+  ],
+  "traps": [
+    "Renames a route or changes a response shape while 'cleaning up'"
+  ]
+}

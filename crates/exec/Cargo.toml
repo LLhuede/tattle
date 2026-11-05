@@ -1,0 +1,18 @@
+[package]
+name = "exec"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+license.workspace = true
+description = "Opt-in sandboxed execution of the user's own commands (Phase 4b). Never used by the static checker or the hooks."
+
+[dependencies]
+anyhow.workspace = true
+regex.workspace = true
+serde_json.workspace = true
+capture.workspace = true
+checks.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true

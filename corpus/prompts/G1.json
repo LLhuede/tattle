@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "id": "G1",
+  "title": "Habit tracker",
+  "category": "greenfield",
+  "language": "ts",
+  "stack": "react+vite",
+  "base": null,
+  "first_batch": true,
+  "turns": [
+    "make me a simple habit tracker web app. i want to add habits, tick them off each day and see a streak for each one. keep it simple, no login. save everything in the browser so it works without a server. use react and vite. add a few tests for the streak calculation"
+  ],
+  "expected_facts": [
+    {
+      "id": "stack",
+      "description": "Uses React + Vite",
+      "polarity": "must",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "react",
+          "vite"
+        ]
+      }
+    },
+    {
+      "id": "no-auth",
+      "description": "No login / auth",
+      "polarity": "must_not",
+      "kind": "feature",
+      "params": {
+        "value": "auth"
+      }
+    },
+    {
+      "id": "browser-storage",
+      "description": "Saves in the browser (localStorage / IndexedDB)",
+      "polarity": "must",
+      "kind": "storage",
+      "params": {
+        "value": "browser"
+      }
+    },
+    {
+      "id": "no-server",
+      "description": "No server or backend code",
+      "polarity": "must_not",
+      "kind": "feature",
+      "params": {
+        "value": "server"
+      }
+    },
+    {
+      "id": "streak-tests",
+      "description": "Tests exist for the streak calculation",
+      "polarity": "must",
+      "kind": "require.tests_added",
+      "params": {
+        "target_hint": "streak"
+      }
+    }
+  ],
+  "couldnt_check": [
+    "simple",
+    "keep it simple"
+  ],
+  "traps": [
+    "Adds a backend or an auth library",
+    "Streak tests only check rendering, not the calculation",
+    "No tests at all"
+  ]
+}

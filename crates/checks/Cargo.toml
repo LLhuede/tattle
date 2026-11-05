@@ -1,0 +1,17 @@
+[package]
+name = "checks"
+description = "The checker: loads a recording and reports findings. No AI."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+license.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+regex.workspace = true
+serde_json.workspace = true
+tempfile.workspace = true
+tree-sitter.workspace = true
+tree-sitter-typescript.workspace = true
+capture.workspace = true

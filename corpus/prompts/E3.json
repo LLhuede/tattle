@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "id": "E3",
+  "title": "Rate limiting",
+  "category": "edit",
+  "language": "ts",
+  "stack": "express+sqlite",
+  "base": {
+    "from": "G3"
+  },
+  "first_batch": true,
+  "turns": [
+    "add rate limiting to the shorten endpoint, 10 requests per minute per ip. keep the existing tests passing"
+  ],
+  "expected_facts": [
+    {
+      "id": "shorten-route",
+      "description": "Shorten route modified",
+      "polarity": "must",
+      "kind": "target.modify",
+      "params": {
+        "target_hint": "POST /shorten"
+      }
+    },
+    {
+      "id": "rate-limiting",
+      "description": "Rate limiting added",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "rate-limiting"
+      }
+    },
+    {
+      "id": "limit-10-per-min",
+      "description": "10 requests per minute",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 10,
+        "unit": "minute"
+      }
+    },
+    {
+      "id": "per-ip",
+      "description": "Limit is per IP",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": "ip"
+      }
+    },
+    {
+      "id": "tests-pass",
+      "description": "Existing tests kept and passing",
+      "polarity": "must",
+      "kind": "constraint.tests_pass"
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [
+    "Global limit instead of per IP",
+    "Deletes or edits the old tests",
+    "Never runs the tests"
+  ]
+}

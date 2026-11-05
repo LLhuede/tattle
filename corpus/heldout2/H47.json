@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "id": "H47",
+  "title": "Length validation on names and descriptions",
+  "category": "edit",
+  "language": "ts",
+  "stack": "TypeScript + Express + better-sqlite3",
+  "base": {
+    "from": "G2"
+  },
+  "first_batch": false,
+  "turns": [
+    "Expense descriptions should be max 100 characters, and person names need to be at least 2 characters long. Anything outside that gets a 400 with a clear error. Please limit your changes to src/app.ts, nothing else in the repo should change."
+  ],
+  "expected_facts": [
+    {
+      "id": "desc-max-100",
+      "description": "Expense description at most 100 characters",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 100,
+        "unit": "characters"
+      }
+    },
+    {
+      "id": "name-min-2",
+      "description": "Person name at least 2 characters",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 2,
+        "unit": "characters"
+      }
+    },
+    {
+      "id": "only-app",
+      "description": "Only change src/app.ts",
+      "polarity": "must",
+      "kind": "scope.only",
+      "params": {
+        "targets": [
+          "src/app.ts"
+        ]
+      }
+    }
+  ],
+  "couldnt_check": [
+    "a clear error"
+  ],
+  "traps": [],
+  "notes": "heldout2 (constraint-focused)"
+}

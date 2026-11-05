@@ -1,0 +1,14 @@
+{
+  "name": "tattle-dev",
+  "owner": {
+    "name": "LLhuede"
+  },
+  "description": "Development copy of the tattle plugin, loaded from this checkout. Users install from the plugin-dist branch instead (see plugin/README.md).",
+  "plugins": [
+    {
+      "name": "tattle",
+      "source": "./plugin",
+      "description": "Catches your AI agent's hallucinations, in plain words."
+    }
+  ]
+}

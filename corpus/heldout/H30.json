@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "id": "H30",
+  "title": "Rename amount to total",
+  "category": "edit",
+  "language": "ts",
+  "stack": "TypeScript + Express + SQLite",
+  "base": {
+    "from": "G2"
+  },
+  "first_batch": false,
+  "turns": [
+    "rename the `amount` field on expenses to `total` everywhere in the api, request body and responses. update the tests so they pass with the new name. dont rename the db column tho, amount_cents stays as is"
+  ],
+  "expected_facts": [
+    {
+      "id": "rename",
+      "description": "amount renamed to total",
+      "polarity": "must",
+      "kind": "symbol.rename",
+      "params": {
+        "old": "amount",
+        "new": "total"
+      }
+    },
+    {
+      "id": "tests-pass",
+      "description": "Tests pass",
+      "polarity": "must",
+      "kind": "constraint.tests_pass",
+      "params": {}
+    },
+    {
+      "id": "col-unchanged",
+      "description": "amount_cents column unchanged",
+      "polarity": "must_not",
+      "kind": "target.unchanged",
+      "params": {
+        "target_hint": "amount_cents"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout v2"
+}

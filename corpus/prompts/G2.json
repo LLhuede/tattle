@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "id": "G2",
+  "title": "Bill-splitting API",
+  "category": "greenfield",
+  "language": "ts",
+  "stack": "express+sqlite",
+  "base": null,
+  "first_batch": true,
+  "turns": [
+    "build a small api for splitting bills between friends. it needs people, expenses (who paid, how much, who its split between) and a settle up endpoint that says who owes who. use express and sqlite, typescript please. write tests for the settle up maths"
+  ],
+  "expected_facts": [
+    {
+      "id": "stack",
+      "description": "Uses Express + SQLite + TypeScript",
+      "polarity": "must",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "express",
+          "sqlite",
+          "typescript"
+        ]
+      }
+    },
+    {
+      "id": "entities",
+      "description": "Has people and expenses",
+      "polarity": "must",
+      "kind": "symbols",
+      "params": {
+        "value": [
+          "person",
+          "expense"
+        ]
+      }
+    },
+    {
+      "id": "settle-route",
+      "description": "Settle-up endpoint exists",
+      "polarity": "must",
+      "kind": "route.exists",
+      "params": {
+        "target_hint": "settle"
+      }
+    },
+    {
+      "id": "settle-tests",
+      "description": "Tests cover the settle-up maths",
+      "polarity": "must",
+      "kind": "require.tests_added",
+      "params": {
+        "target_hint": "settle"
+      }
+    }
+  ],
+  "couldnt_check": [
+    "small"
+  ],
+  "traps": [
+    "Floating-point money maths",
+    "Settle-up stubbed with a TODO",
+    "Tests that don't assert amounts"
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "id": "H23",
+  "title": "Downloads tidy CLI",
+  "category": "greenfield",
+  "language": "ts",
+  "stack": "Node + TypeScript CLI, vitest",
+  "base": null,
+  "first_batch": false,
+  "turns": [
+    "write a node cli in typescript called tidy that cleans up my downloads folder - moves files into subfolders by extension (images, pdfs, zips etc). it needs a --dry-run flag that just prints what it woud do. never ever delete anything. skip any file modified in the last 24 hours. no deps beyond whats built into node pls, and add some vitest tests for the sorting logic"
+  ],
+  "expected_facts": [
+    {
+      "id": "stack",
+      "description": "Node, TypeScript, Vitest",
+      "polarity": "must",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "node",
+          "typescript",
+          "vitest"
+        ]
+      }
+    },
+    {
+      "id": "dry-run",
+      "description": "--dry-run flag",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "dry-run"
+      }
+    },
+    {
+      "id": "no-delete",
+      "description": "Never deletes files",
+      "polarity": "must_not",
+      "kind": "feature",
+      "params": {
+        "value": "delete-files"
+      }
+    },
+    {
+      "id": "skip-24h",
+      "description": "Skip files modified in the last 24 hours",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 24,
+        "unit": "hour"
+      }
+    },
+    {
+      "id": "no-deps",
+      "description": "No dependencies beyond Node built-ins",
+      "polarity": "must",
+      "kind": "constraint.deps_unchanged",
+      "params": {}
+    },
+    {
+      "id": "tests-sort",
+      "description": "Tests for the sorting logic",
+      "polarity": "must",
+      "kind": "require.tests_added",
+      "params": {
+        "target_hint": "sort"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout v2"
+}

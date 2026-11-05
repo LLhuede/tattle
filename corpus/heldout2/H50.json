@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "id": "H50",
+  "title": "Daily settle-up summary",
+  "category": "edit",
+  "language": "ts",
+  "stack": "TypeScript + Express + better-sqlite3",
+  "base": {
+    "from": "G2"
+  },
+  "first_batch": false,
+  "turns": [
+    "add a daily summary that gets logged to the console every day at 9am, showing who owes who (basically the settle up transfers). dont npm install node-cron or anything like that, just use whatever node has built in"
+  ],
+  "expected_facts": [
+    {
+      "id": "daily-summary",
+      "description": "Daily console summary of who owes who",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "daily-summary"
+      }
+    },
+    {
+      "id": "at-9am",
+      "description": "Runs every day at 9am",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 9,
+        "unit": "time"
+      }
+    },
+    {
+      "id": "no-new-deps",
+      "description": "Don't install node-cron or any package",
+      "polarity": "must",
+      "kind": "constraint.deps_unchanged",
+      "params": {}
+    },
+    {
+      "id": "no-node-cron",
+      "description": "Don't use node-cron",
+      "polarity": "must_not",
+      "kind": "stack",
+      "params": {
+        "value": [
+          "node-cron"
+        ]
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout2 (constraint-focused)"
+}

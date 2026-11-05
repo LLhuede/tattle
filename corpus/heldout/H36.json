@@ -1,0 +1,102 @@
+{
+  "schema": 1,
+  "id": "H36",
+  "title": "Link expiry",
+  "category": "edit",
+  "language": "ts",
+  "stack": "TypeScript + Express + SQLite",
+  "base": {
+    "from": "G3"
+  },
+  "first_batch": false,
+  "turns": [
+    "links should expire. add an optional expiresIn (in hours) to the shorten body, default 30 days, max 365 days. expired links give 410 not 404. also add DELETE /api/links/:code. ideally a cleanup job that purges expired rows every hour but only if its easy. keep the tests passing and add new ones for expiry"
+  ],
+  "expected_facts": [
+    {
+      "id": "expiry",
+      "description": "Links expire",
+      "polarity": "must",
+      "kind": "feature",
+      "params": {
+        "value": "link-expiry"
+      }
+    },
+    {
+      "id": "mod-shorten",
+      "description": "Shorten body takes expiresIn",
+      "polarity": "must",
+      "kind": "target.modify",
+      "params": {
+        "target_hint": "shorten"
+      }
+    },
+    {
+      "id": "default-30d",
+      "description": "Default expiry 30 days",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 30,
+        "unit": "day"
+      }
+    },
+    {
+      "id": "max-365d",
+      "description": "Max expiry 365 days",
+      "polarity": "must",
+      "kind": "param.literal",
+      "params": {
+        "value": 365,
+        "unit": "day"
+      }
+    },
+    {
+      "id": "route-delete",
+      "description": "DELETE link endpoint",
+      "polarity": "must",
+      "kind": "route.exists",
+      "params": {
+        "target_hint": "links"
+      }
+    },
+    {
+      "id": "cleanup",
+      "description": "Hourly cleanup job if easy",
+      "polarity": "prefer",
+      "kind": "feature",
+      "params": {
+        "value": "cleanup-job"
+      }
+    },
+    {
+      "id": "cleanup-hourly",
+      "description": "Cleanup every hour",
+      "polarity": "prefer",
+      "kind": "param.literal",
+      "params": {
+        "value": 1,
+        "unit": "hour"
+      }
+    },
+    {
+      "id": "tests-pass",
+      "description": "Existing tests keep passing",
+      "polarity": "must",
+      "kind": "constraint.tests_pass",
+      "params": {}
+    },
+    {
+      "id": "tests-expiry",
+      "description": "Tests for expiry",
+      "polarity": "must",
+      "kind": "require.tests_added",
+      "params": {
+        "target_hint": "expir"
+      }
+    }
+  ],
+  "couldnt_check": [],
+  "traps": [],
+  "notes": "heldout v2"
+}
