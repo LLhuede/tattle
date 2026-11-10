@@ -25,7 +25,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-14, ubuntu-22.04, windows-latest]
+        os: [macos-15, ubuntu-22.04, windows-latest]
     runs-on: ${{ matrix.os }}
     # A new run cancels the one still going for the same branch or PR. Set on
     # the job, not the workflow: a run whose job is skipped (a later push to a
