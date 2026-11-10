@@ -5,10 +5,14 @@
 # when "push" is ticked; otherwise the packaged plugin is kept as a
 # downloadable artifact to inspect.
 #
-# To release: tag the commit (e.g. v0.9.0) and push the tag, then run this
-# workflow on the tag with "push" ticked. It also creates a *draft* GitHub
-# Release for the tag with the binaries attached; review the notes and
-# publish it from the Releases page.
+# To release, either:
+# - tag the commit (e.g. v0.9.1) and push the tag, then run this workflow on
+#   the tag with "push" ticked. It creates a *draft* GitHub Release for the
+#   tag with the binaries attached; review the notes and publish it from the
+#   Releases page. Or:
+# - run it on main with "push" ticked and "tag" filled in (e.g. v0.9.1). It
+#   then publishes the GitHub Release itself, which creates the tag on the
+#   commit that was built. The tag must be "v" plus the version in Cargo.toml.
 name: Plugin release
 
 on:
@@ -18,6 +22,10 @@ on:
         description: "Push the plugin-dist branch (what users install from)"
         type: boolean
         default: false
+      tag:
+        description: "Run on a branch only: publish a release and create this tag (e.g. v0.9.1)"
+        type: string
+        default: ""
 
 permissions:
   contents: read
@@ -85,6 +93,22 @@ jobs:
         with:
           path: plugin/dist
           merge-multiple: true
+      - name: Check the tag to create
+        if: ${{ inputs.tag != '' }}
+        env:
+          TAG: ${{ inputs.tag }}
+        run: |
+          want="v$(sed -n 's/^version = "\(.*\)"/\1/p' Cargo.toml | head -1)"
+          if [ "$GITHUB_REF_TYPE" != branch ] || [ "$TAG" != "$want" ]; then
+            echo "tag must be $want and the run must be on a branch (got '$TAG' on a $GITHUB_REF_TYPE)" >&2
+            exit 1
+          fi
+          if git rev-parse -q --verify "refs/tags/$TAG" >/dev/null; then
+            echo "tag $TAG already exists" >&2
+            exit 1
+          fi
+          # Only in this checkout, so the plugin is stamped with the plain version.
+          git tag "$TAG"
       - name: Package the plugin-dist branch
         run: |
           chmod +x plugin/dist/*
@@ -109,4 +133,15 @@ jobs:
           sha256sum tattle-* > SHA256SUMS
           gh release create "${{ github.ref_name }}" tattle-* SHA256SUMS --draft --verify-tag \
             --title "tattle ${{ github.ref_name }}" \
+            --notes "Install in Claude Code: \`/plugin marketplace add ${{ github.repository }}#plugin-dist\` then \`/plugin install tattle@tattle\`. Binaries and SHA-256 checksums are attached. See README.md for what tattle catches and its measured results."
+      - name: Publish a GitHub Release and its tag (when "tag" is filled in, with push ticked)
+        if: ${{ inputs.push && inputs.tag != '' && github.ref_type == 'branch' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag }}
+        run: |
+          cd plugin/dist
+          sha256sum tattle-* > SHA256SUMS
+          gh release create "$TAG" tattle-* SHA256SUMS --target "$GITHUB_SHA" \
+            --title "tattle $TAG" \
             --notes "Install in Claude Code: \`/plugin marketplace add ${{ github.repository }}#plugin-dist\` then \`/plugin install tattle@tattle\`. Binaries and SHA-256 checksums are attached. See README.md for what tattle catches and its measured results."
