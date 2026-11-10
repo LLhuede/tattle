@@ -231,7 +231,7 @@ fn text_report(t: &Totals, flags: &[Flag], dir: &Path, days: Option<u64>) -> Str
             (t.no_run, "no test run in the session"),
             (t.contradicted, "the last test run had failed"),
             (t.other_command, "the project's test command had failed; only a different one passed"),
-            (t.unknown, "the log doesn't show how the last test run ended"),
+            (t.unknown, "the log can't settle it (a subagent worked after the last run, or the run's result isn't shown)"),
         ];
         for (n, what) in rows {
             if n > 0 {

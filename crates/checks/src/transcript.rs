@@ -124,9 +124,9 @@ pub fn session(lines: &[Value], own_command: impl Fn(&str) -> bool) -> Session {
     }
 
     for line in lines {
-        if line["isSidechain"] == true {
-            continue; // a subagent's own conversation
-        }
+        // A subagent's own conversation: its commands count (the hooks see
+        // them too), its words and its prompt aren't the session's.
+        let sidechain = line["isSidechain"] == true;
         if out.cwd.is_none() {
             out.cwd = line["cwd"].as_str().map(str::to_string);
         }
@@ -142,6 +142,7 @@ pub fn session(lines: &[Value], own_command: impl Fn(&str) -> bool) -> Session {
                 let Some(blocks) = content.as_array() else { continue };
                 for b in blocks {
                     match b["type"].as_str() {
+                        Some("text") if sidechain => {}
                         Some("text") => {
                             if let Some(t) = b["text"].as_str() {
                                 if !text.is_empty() {
@@ -155,7 +156,9 @@ pub fn session(lines: &[Value], own_command: impl Fn(&str) -> bool) -> Session {
                             let (Some(id), Some(name)) = (b["id"].as_str(), b["name"].as_str()) else { continue };
                             let input = tool_input(&b["input"], out.cwd.as_deref());
                             pending.insert(id.to_string(), (name.to_string(), input.clone()));
-                            text.clear();
+                            if !sidechain {
+                                text.clear();
+                            }
                             active = true;
                             if !skipping {
                                 push(&mut out, &mut seq, "PreToolUse", json!({ "tool_name": name, "tool_input": input, "tool_use_id": id }));
@@ -201,7 +204,7 @@ pub fn session(lines: &[Value], own_command: impl Fn(&str) -> bool) -> Session {
                         );
                     }
                 }
-                if !results.is_empty() {
+                if !results.is_empty() || sidechain {
                     continue;
                 }
                 let prompt = content_text(content);
@@ -255,7 +258,9 @@ pub enum Claim {
     Contradicted,
     /// The project's test command last failed; a different one passed.
     OtherCommand,
-    /// The last test run's result can't be read from the log.
+    /// The log can't settle it: the last test run's result isn't readable,
+    /// or a subagent worked after it (a subagent's commands are usually in
+    /// a log of their own, so it may have run the tests).
     Unknown,
 }
 
@@ -275,6 +280,11 @@ pub struct Request {
 fn is_prose(path: &str) -> bool {
     let lower = path.to_ascii_lowercase();
     [".md", ".mdx", ".txt", ".rst", ".adoc"].iter().any(|ext| lower.ends_with(ext))
+}
+
+/// Tools that hand work to a subagent.
+fn is_subagent(tool: &str) -> bool {
+    matches!(tool, "Task" | "Agent")
 }
 
 fn is_person(e: &Event, raw: &[Value]) -> bool {
@@ -311,17 +321,23 @@ pub fn audit(session: &Session) -> Vec<Request> {
         // made no claim.
         let mut claim = None;
         if !closing.is_empty() && behaviour::claims_suite_passes(&closing) {
-            let contradicted = behaviour::false_tests_pass_claim(so_far, &[]);
-            let no_run = behaviour::unverified_tests_pass_claim(so_far, &[]);
+            let last_run = so_far.iter().rposition(|e| e.tool.as_ref().is_some_and(|t| t.post && t.is_test_run()));
+            let unseen_work = so_far[last_run.map_or(0, |i| i + 1)..].iter().any(|e| e.tool.as_ref().is_some_and(|t| t.post && !t.failed && is_subagent(&t.name)));
+            let (contradicted, no_run) =
+                if unseen_work { (Vec::new(), Vec::new()) } else { (behaviour::false_tests_pass_claim(so_far, &[]), behaviour::unverified_tests_pass_claim(so_far, &[])) };
+            if unseen_work {
+                findings.retain(|f| f.check != "claims.tests_pass_other_command");
+            }
             let other = findings.iter().any(|f| f.check == "claims.tests_pass_other_command");
-            claim = Some(if !contradicted.is_empty() {
+            claim = Some(if unseen_work {
+                Claim::Unknown
+            } else if !contradicted.is_empty() {
                 Claim::Contradicted
             } else if !no_run.is_empty() {
                 Claim::NoRun
             } else if other {
                 Claim::OtherCommand
             } else {
-                let last_run = so_far.iter().rposition(|e| e.tool.as_ref().is_some_and(|t| t.post && t.is_test_run()));
                 match last_run.and_then(|i| so_far[i].tool.as_ref().and_then(|t| t.outcome).map(|o| (i, o))) {
                     Some((i, Outcome::Passed)) => {
                         let edited = so_far[i + 1..].iter().any(|e| {
@@ -551,6 +567,47 @@ mod tests {
         let r = judged(&lines);
         assert_eq!(checks(&r[0]), ["claims.fix_unreproduced"]);
         assert!(r[1].findings.is_empty(), "the finding belongs to request 1 only");
+    }
+
+    #[test]
+    fn a_subagent_may_have_run_the_tests() {
+        // The subagent's commands are in a log of their own.
+        let lines = [
+            user("add a discount and check the tests"),
+            call("a1", "Agent", json!({ "prompt": "run the tests and report" })),
+            ok("a1", "All 12 tests passed."),
+            says("The tests pass."),
+        ];
+        let r = judged(&lines);
+        assert_eq!(r[0].claim, Some(Claim::Unknown));
+        assert!(r[0].findings.is_empty());
+        // A failed run, then a subagent: it may have fixed and re-run.
+        let lines = [user("fix the build"), bash("t1", "npm test"), failed("t1", FAILING), call("a1", "Task", json!({ "prompt": "fix it" })), ok("a1", "Fixed."), says("All tests pass.")];
+        let r = judged(&lines);
+        assert_eq!(r[0].claim, Some(Claim::Unknown));
+        assert!(r[0].findings.is_empty());
+        // A passing run after the subagent settles it again.
+        let lines = [user("fix the build"), call("a1", "Task", json!({ "prompt": "fix it" })), ok("a1", "Fixed."), bash("t1", "npm test"), ok("t1", PASSED), says("All tests pass.")];
+        assert_eq!(judged(&lines)[0].claim, Some(Claim::Backed));
+    }
+
+    #[test]
+    fn a_subagents_commands_in_the_same_log_count() {
+        let side = |mut v: Value| {
+            v["isSidechain"] = Value::from(true);
+            v
+        };
+        let lines = [
+            user("add a discount"),
+            side(user("run the tests")),
+            side(bash("t1", "npm test")),
+            side(ok("t1", PASSED)),
+            side(says("All 12 pass.")),
+            says("Added the discount; the tests pass."),
+        ];
+        let r = judged(&lines);
+        assert_eq!(r.len(), 1, "the subagent's prompt isn't a request");
+        assert_eq!(r[0].claim, Some(Claim::Backed));
     }
 
     #[test]
