@@ -34,6 +34,7 @@ Run `tattle score` after any checker change (`cargo test` also enforces it when 
 - `crates/harness`: synthetic recordings (`synth`), defect injection (`mutate`), scoring (`score`), intent scoring (`intent_score`). The checker must never read `expected.json`.
 - `crates/checks/src/intent.rs`: prompt → intent facts (Phase 5, lexicon v2)
 - `crates/exec`: opt-in sandboxed execution (Phase 4b). `sandbox-exec` profile, runner, escape tests. Never used by `tattle check` or the hooks
+- `crates/checks/src/transcript.rs`: `tattle audit`: Claude Code's own session logs → recorder-shaped events, and the claim rules on them (`crates/tattle/src/audit.rs` prints the result)
 - `crates/checks/src/asks.rs`: prompt-level checks without the lexicon (read-only requests, phantom references, unrequested changes)
 - `corpus/recall/`, `corpus/recall2/`: recall-study trap prompts (designed to make agents claim false things); `corpus/recall2/` was written by an agent that never saw the checker
 - `corpus/dev/`: prompts the lexicon was tuned on · `corpus/heldout/`: prompts **never** used for tuning. Don't change the lexicon based on held-out failures; see `docs/DECISIONS.md` → "Held-out protocol".
@@ -73,6 +74,11 @@ Run `tattle score` after any checker change (`cargo test` also enforces it when 
 
 ## Progress log
 Newest first.
+
+### 2026-11-10 (session 20, cloud: `tattle audit`)
+- `tattle audit` and `/tattle:audit`: checks the Claude Code sessions already on the computer, from Claude Code's own session logs, so tattle shows something in the first minute. `checks/transcript.rs` turns a log into recorder-shaped events; the five `claims.*` rules for tests and fixes run on them, each request judged as of the end of its turn. Counts backed claims too. Read-only; stores nothing (DECISIONS: proposed, needs sign-off).
+- `fix_claims` checks take the raw events, not a whole recording (no behaviour change).
+- Tests: adapter and audit units, 4 end-to-end through the binary, and over every synthetic session and mutation the audit of the log equals the full check for those rules. Score unchanged (1.00/1.00, 0 false alarms). **Not yet measured on real past sessions.**
 
 ### 2026-11-04 → 11-05 (build session 19 continued, cloud: release form, live Windows use, CI, 0.9.0)
 - Release form: README at the root ("catch your AI agent's hallucinations", two real screenshots, blind-first headline, how results stay deterministic), SECURITY, CONTRIBUTING, MIT; private-only material out, checked by 7 privacy reviews of the `git archive` tree (the last two clean); maintainer-only files are `export-ignore`.

@@ -196,7 +196,7 @@ fn cross_findings(recording: &Recording, events: &[Event], record: &Value) -> Ve
     }
     let status = |side: &str, id: &str| c[side][id].as_str().unwrap_or("").to_string();
     let mut out = Vec::new();
-    let turns = human_turns(recording, events);
+    let turns = human_turns(&recording.events, events);
     let fix_turns: Vec<_> = turns.iter().filter(|t| fix_request(&t.prompt)).collect();
     if fix_turns.is_empty() {
         return out;

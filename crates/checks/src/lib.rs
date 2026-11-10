@@ -30,6 +30,7 @@ pub mod paths;
 pub mod plain;
 pub mod recording;
 pub mod report;
+pub mod transcript;
 pub mod ts;
 
 use std::collections::{BTreeMap, BTreeSet};
@@ -71,9 +72,9 @@ pub fn run(recording: &Recording) -> Report {
     for (seq, f) in prompt_turn_checks(recording, &events) {
         note(seq, f, &mut findings);
     }
-    findings.extend(fix_claims::fix_unreproduced(recording, &events));
-    findings.extend(fix_claims::flaky_unobserved(recording, &events));
-    findings.extend(fix_claims::tests_pass_other_command(recording, &events));
+    findings.extend(fix_claims::fix_unreproduced(&recording.events, &events));
+    findings.extend(fix_claims::flaky_unobserved(&recording.events, &events));
+    findings.extend(fix_claims::tests_pass_other_command(&recording.events, &events));
     findings.extend(exec_findings::findings(recording, &events));
     findings.extend(behaviour::tests_not_rerun_after_edit(&turns));
     findings.extend(behaviour::risky_commands(&events));

@@ -25,6 +25,7 @@ Works on macOS, Linux and Windows. On Windows, Claude Code must be using Git Bas
 - **Nothing**, when everything checks out.
 - **One line**, when Claude finishes a turn and tattle spotted something new. For example: *"⚠️ tattle: Claude said the tests pass, but they failed the last time it ran them. Type /tattle:report for details."*
 - **`/tattle:report`** shows everything tattle noticed in this session, with the things worth a look first. Each item names its rule.
+- **`/tattle:audit`** checks your past Claude Code sessions on this computer (the last 30 days; `/tattle:audit 90` for 90): how often "the tests pass" had a test run behind it, and which requests are worth a look. It reads Claude Code's own session logs and stores nothing.
 - **`/tattle:mute <rule>`** stops tattle showing that rule in this project; **`/tattle:unmute <rule>`** brings it back.
 - **`/tattle:tell-claude on`** also sends new alerts to Claude at the end of a turn, so it corrects itself or says why tattle is wrong (at most once per turn). **`/tattle:tell-claude off`** stops it. Off by default.
 - For every project: `TATTLE_MUTE=rule1,rule2` and `TATTLE_TELL_CLAUDE=1` in Claude Code's settings (`env`).

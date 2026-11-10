@@ -638,3 +638,72 @@ fn coverage_holds_on_awkward_input() {
         assert!(e.coverage.holds(), "{text:?}: {:?}", e.coverage);
     }
 }
+
+/// The claim rules `tattle audit` runs on Claude Code's own session logs.
+const AUDIT_RULES: &[&str] =
+    &["claims.tests_pass_false", "claims.tests_pass_unverified", "claims.tests_pass_other_command", "claims.fix_unreproduced", "claims.flaky_unobserved"];
+
+/// A recording's hook events written the way Claude Code's session log
+/// holds the same session (the form `checks::transcript` reads).
+fn as_session_log(rec: &Recording) -> Vec<Value> {
+    let real_path = |input: &Value| {
+        let mut input = input.clone();
+        for key in ["file_path", "notebook_path", "path"] {
+            if let Some(p) = input[key].as_str() {
+                input[key] = Value::from(p.replace("<PROJECT>", "/work/app"));
+            }
+        }
+        input
+    };
+    let mut lines = Vec::new();
+    for e in &rec.events {
+        let p = &e["payload"];
+        let id = p["tool_use_id"].as_str().unwrap_or("");
+        match e["event"].as_str().unwrap_or("") {
+            "UserPromptSubmit" => lines.push(json!({ "type": "user", "cwd": "/work/app", "message": { "role": "user", "content": p["prompt"] } })),
+            "PreToolUse" => lines.push(json!({ "type": "assistant", "message": { "role": "assistant", "content": [{ "type": "tool_use", "id": id, "name": p["tool_name"], "input": real_path(&p["tool_input"]) }] } })),
+            "PostToolUse" => {
+                let r = &p["tool_response"];
+                let text = format!("{}{}", r["stdout"].as_str().unwrap_or(""), r["stderr"].as_str().unwrap_or(""));
+                lines.push(json!({ "type": "user", "message": { "role": "user", "content": [{ "type": "tool_result", "tool_use_id": id, "content": text }] }, "toolUseResult": r }));
+            }
+            "PostToolUseFailure" => lines.push(json!({
+                "type": "user",
+                "message": { "role": "user", "content": [{ "type": "tool_result", "tool_use_id": id, "content": p["error"], "is_error": true }] },
+                "toolUseResult": format!("Error: {}", p["error"].as_str().unwrap_or("")),
+            })),
+            "Stop" => {
+                if let Some(text) = p["last_assistant_message"].as_str() {
+                    lines.push(json!({ "type": "assistant", "message": { "role": "assistant", "content": [{ "type": "text", "text": text }] } }));
+                }
+            }
+            _ => {}
+        }
+    }
+    lines
+}
+
+/// `tattle audit` on a session's log finds what the full check finds, for
+/// the rules it runs: every claim mutation is caught from the log alone,
+/// and no clean session or other mutation is flagged.
+#[test]
+fn audit_of_the_session_log_matches_the_full_check() {
+    let mut caught: BTreeSet<&str> = BTreeSet::new();
+    for f in &collected().1.fixtures {
+        let rec = Recording::load(&f.dir).unwrap();
+        let full: BTreeSet<String> = checks::run(&rec).findings.into_iter().map(|x| x.check).filter(|c| AUDIT_RULES.contains(&c.as_str())).collect();
+        let session = checks::transcript::session(&as_session_log(&rec), |_| false);
+        let from_log: BTreeSet<String> = checks::transcript::audit(&session).into_iter().flat_map(|r| r.findings).map(|x| x.check).collect();
+        assert_eq!(from_log, full, "{}", f.name);
+        for rule in AUDIT_RULES {
+            if from_log.contains(*rule) && f.expected.iter().any(|e| e.check == *rule) {
+                caught.insert(rule);
+            }
+        }
+    }
+    assert_eq!(caught.into_iter().collect::<Vec<_>>(), {
+        let mut all = AUDIT_RULES.to_vec();
+        all.sort();
+        all
+    }, "each audit rule is exercised by a mutation");
+}

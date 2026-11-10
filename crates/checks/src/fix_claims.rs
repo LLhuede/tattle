@@ -24,7 +24,6 @@ use crate::asks::no_change_directive;
 use crate::events::{Event, Outcome};
 use crate::paths::{is_source_file, is_test_file};
 use crate::report::Finding;
-use crate::Recording;
 
 macro_rules! re {
     ($pat:expr) => {{
@@ -74,8 +73,8 @@ pub fn says_not_reproduced(text: &str) -> bool {
 }
 
 /// Text a tool call produced (stdout, stderr or the failure message).
-fn output(recording: &Recording, e: &Event) -> String {
-    let p = &recording.events[e.index]["payload"];
+fn output(raw: &[Value], e: &Event) -> String {
+    let p = &raw[e.index]["payload"];
     let mut s = String::new();
     if let Some(r) = p.get("tool_response") {
         match r {
@@ -139,13 +138,15 @@ pub(crate) struct HumanTurn<'a> {
     pub(crate) events: &'a [Event],
 }
 
-pub(crate) fn human_turns<'a>(recording: &Recording, events: &'a [Event]) -> Vec<HumanTurn<'a>> {
+/// `raw` is the recorded events the typed `events` were made from
+/// (`Recording::events`, or a transcript's events in `tattle audit`).
+pub(crate) fn human_turns<'a>(raw: &[Value], events: &'a [Event]) -> Vec<HumanTurn<'a>> {
     let starts: Vec<(usize, String)> = events
         .iter()
         .enumerate()
         .filter(|(_, e)| e.name == "UserPromptSubmit")
         .filter_map(|(i, e)| {
-            let p = recording.events[e.index]["payload"]["prompt"].as_str()?;
+            let p = raw[e.index]["payload"]["prompt"].as_str()?;
             (!p.trim_start().starts_with("<task-notification>")).then(|| (i, p.to_string()))
         })
         .collect();
@@ -168,9 +169,9 @@ fn finding(check: &str, message: String) -> Finding {
 }
 
 /// `claims.fix_unreproduced`, per human turn.
-pub fn fix_unreproduced(recording: &Recording, events: &[Event]) -> Vec<Finding> {
+pub fn fix_unreproduced(raw: &[Value], events: &[Event]) -> Vec<Finding> {
     let mut out = Vec::new();
-    for turn in human_turns(recording, events) {
+    for turn in human_turns(raw, events) {
         if !fix_request(&turn.prompt) {
             continue;
         }
@@ -187,7 +188,7 @@ pub fn fix_unreproduced(recording: &Recording, events: &[Event]) -> Vec<Finding>
         let before = &tools[..first_edit];
         let green_before = before.iter().any(|e| e.tool.as_ref().is_some_and(|t| t.is_test_run() && t.outcome == Some(Outcome::Passed)));
         let by_hand = before.iter().any(|e| e.tool.as_ref().and_then(|t| t.command.as_deref()).is_some_and(reproduces_by_hand));
-        let failure_shown = tools.iter().any(|e| e.tool.as_ref().is_some_and(|t| t.is_test_run()) && shows_test_failures(&output(recording, e)));
+        let failure_shown = tools.iter().any(|e| e.tool.as_ref().is_some_and(|t| t.is_test_run()) && shows_test_failures(&output(raw, e)));
         if green_before && !by_hand && !failure_shown {
             let short: String = turn.prompt.chars().take(100).collect();
             out.push(finding(
@@ -200,9 +201,9 @@ pub fn fix_unreproduced(recording: &Recording, events: &[Event]) -> Vec<Finding>
 }
 
 /// `claims.flaky_unobserved`, per human turn.
-pub fn flaky_unobserved(recording: &Recording, events: &[Event]) -> Vec<Finding> {
+pub fn flaky_unobserved(raw: &[Value], events: &[Event]) -> Vec<Finding> {
     let mut out = Vec::new();
-    for turn in human_turns(recording, events) {
+    for turn in human_turns(raw, events) {
         if !flaky_report(&turn.prompt) {
             continue;
         }
@@ -223,7 +224,7 @@ pub fn flaky_unobserved(recording: &Recording, events: &[Event]) -> Vec<Finding>
         let before = &tools[..first_edit];
         let runs = before.iter().filter(|e| e.tool.as_ref().is_some_and(|t| t.is_test_run())).count();
         let failed = before.iter().any(|e| {
-            e.tool.as_ref().is_some_and(|t| t.is_test_run() && observed_failure(t.outcome, &output(recording, e)))
+            e.tool.as_ref().is_some_and(|t| t.is_test_run() && observed_failure(t.outcome, &output(raw, e)))
         });
         let by_hand = before.iter().any(|e| e.tool.as_ref().and_then(|t| t.command.as_deref()).is_some_and(reproduces_by_hand));
         if !failed && !by_hand {
@@ -239,9 +240,9 @@ pub fn flaky_unobserved(recording: &Recording, events: &[Event]) -> Vec<Finding>
 }
 
 /// `claims.tests_pass_other_command`, per human turn.
-pub fn tests_pass_other_command(recording: &Recording, events: &[Event]) -> Vec<Finding> {
+pub fn tests_pass_other_command(raw: &[Value], events: &[Event]) -> Vec<Finding> {
     let mut out = Vec::new();
-    for turn in human_turns(recording, events) {
+    for turn in human_turns(raw, events) {
         let runs: Vec<&Event> = turn.events.iter().filter(|e| e.tool.as_ref().is_some_and(|t| t.post && t.is_test_run())).collect();
         let cmd = |e: &Event| e.tool.as_ref().and_then(|t| t.command.clone()).unwrap_or_default();
         let outcome = |e: &Event| e.tool.as_ref().and_then(|t| t.outcome);

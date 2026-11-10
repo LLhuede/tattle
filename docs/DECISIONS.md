@@ -9,6 +9,13 @@ Statuses: **Decided** · **Proposed** (needs sign-off) · **Superseded**
 
 ---
 
+### 2026-11-10: `tattle audit` reads Claude Code's own session logs
+- **Why:** tattle is silent when nothing is wrong, and current models rarely trip a rule, so a new user sees nothing for days. Sessions from before the install are already on the computer; checking them gives a result in the first minute.
+- **Decided:** `tattle audit` (the plugin's `/tattle:audit`) turns each session log into the events the recorder writes (`checks/transcript.rs`) and runs the rules that need only events and messages: the five `claims.*` rules for tests and fixes. Each request is judged on the session up to the end of its turn, as the plugin would have. A "tests pass" claim is also counted as backed (a passing run, nothing edited after), or as passed-then-edited; the second is a count, not a finding, because without snapshots the audit can't tell whether the tests use the edited file.
+- **Left out on purpose:** rules that need code snapshots, `capture.*`, and for now `commands.risky` and `events.edit_outside_project` (a log's working folder can change mid-session; needs real logs to judge).
+- **Privacy:** read-only, on request, nothing stored, nothing sent. **Proposed** (needs the maintainer's sign-off: it is the first time tattle reads files outside the project).
+- **Tested:** adapter and audit unit tests; four end-to-end tests through the binary; and over every synthetic session and mutation, the audit of the session's log finds exactly what the full check finds for those five rules (`audit_of_the_session_log_matches_the_full_check`). Log shapes were checked against a real Claude Code log (v2.1.321), including a failed command. **Not yet measured on a batch of real past sessions**: do that, and record the false alerts before fixing any, before announcing it.
+
 ### 2026-11-05: The harness's fake key is put together at runtime
 - **Found:** the 0.9.0 release's `plugin-dist` push was blocked by GitHub push protection: the mutation harness ships inside the `tattle` binary, and `concat!` joins its fake Stripe key at compile time, so the whole key was in the Linux binaries.
 - **Fixed:** `mutate::fake_secret()` stores the value with a `#` in the middle and removes it at runtime; neither the source nor the binary holds a key-shaped string (checked by scanning the release binary). Same value, same tests, same score.

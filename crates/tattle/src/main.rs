@@ -9,6 +9,7 @@ use capture::export::{BUDGET_BYTES, ExportOptions};
 use capture::hook::HookEnv;
 use clap::{Parser, Subcommand};
 
+mod audit;
 mod config;
 mod live;
 
@@ -158,6 +159,27 @@ enum Command {
         #[arg(long)]
         project: Option<PathBuf>,
     },
+    /// Check the Claude Code sessions already on this computer: how often
+    /// "the tests pass" was backed by a test run, and which requests are
+    /// worth a look. Reads Claude Code's own session logs; writes and sends
+    /// nothing.
+    Audit {
+        /// Days to look back, as the plugin's /tattle:audit passes it
+        /// (empty means 30). Same as --days.
+        window: Option<String>,
+        /// Folder of session logs (default: Claude Code's, ~/.claude/projects).
+        #[arg(long)]
+        dir: Option<PathBuf>,
+        /// Only sessions from the last N days.
+        #[arg(long)]
+        days: Option<u64>,
+        /// Only sessions whose log folder contains this text.
+        #[arg(long)]
+        project: Option<String>,
+        /// Print the result as JSON.
+        #[arg(long)]
+        json: bool,
+    },
     /// Run every check on one exported recording and print the findings.
     Check {
         /// Recording folder, e.g. fixtures/recorded/G1/run1.
@@ -298,6 +320,13 @@ fn main() -> ExitCode {
         Command::Score { recorded, labels, save, json, keep, corpus, bases, dev, heldout } => score(recorded, labels, save, json, keep, corpus, bases, dev, heldout),
         Command::Intent { turns, project, json } => intent(turns, project, json),
         Command::Check { recording, json } => check(recording, json),
+        Command::Audit { window, dir, days, project, json } => match audit::window_days(window.as_deref(), days) {
+            Ok(days) => audit::run(&audit::Options { dir, days, project, json }).map(|text| print!("{text}")),
+            Err(said) => {
+                println!("{said}");
+                Ok(())
+            }
+        },
         Command::Report { project, session } => {
             let project = project
                 .or_else(|| std::env::var_os("CLAUDE_PROJECT_DIR").filter(|v| !v.is_empty()).map(PathBuf::from))

@@ -16,6 +16,16 @@ cargo build --release
 
 The binary is `target/release/tattle`.
 
+## Audit the sessions you already have
+
+```bash
+target/release/tattle audit --days 30
+```
+
+Reads Claude Code's own session logs (`~/.claude/projects/`, or `$CLAUDE_CONFIG_DIR/projects`) and prints how often "the tests pass" was backed by a test run, and the requests worth a look. It only reads. `--project <text>` keeps the sessions whose log folder contains the text, `--dir <folder>` reads logs from somewhere else, and `--json` prints the result for other tools.
+
+Each request is judged as the plugin would have judged it when its turn ended. The logs hold what Claude said and ran, not your code, so only the claim rules run: `claims.tests_pass_false`, `claims.tests_pass_unverified`, `claims.tests_pass_other_command`, `claims.fix_unreproduced` and `claims.flaky_unobserved`.
+
 ## Record a session in a copy of your project
 
 This copies your project into a new folder and adds Claude Code hooks that record the session there. Your original project isn't touched.

@@ -66,6 +66,25 @@ tattle checks what it can see: test runs, what Claude said, and the code changes
 It can't tell whether the code does the right thing.
 ```
 
+**Already have sessions?** `/tattle:audit` checks the Claude Code sessions on your computer from before tattle was installed: how often "the tests pass" had a test run behind it, and which requests are worth a look.
+
+```
+tattle audit: 42 sessions, 310 requests from the last 30 days.
+
+Claude said the tests pass 57 times:
+  44  a test run had passed, and nothing was edited after it
+   6  a test run had passed, but files were edited after it
+   5  no test run in the session
+   2  the last test run had failed
+
+Worth a look (7):
+- 2026-11-03, ~/code/shop, request 2 ("add free shipping over 50 and tell me the tests pass"):
+  Claude said the tests pass, but it never ran them. (`claims.tests_pass_unverified`)
+  …
+```
+
+*(Example output.)* The audit reads Claude Code's own session logs, which hold what Claude said and ran but not your code. So it runs the claim rules only; the code and request checks need a session the plugin recorded.
+
 **Silence means no rule fired, not that the work is right.** tattle only speaks when the session proves something doesn't add up, so it misses things (see below).
 
 **Your call what happens next.** By default the alert goes to you, not to Claude. Two settings, per project:
@@ -107,6 +126,7 @@ tattle runs at the end of every turn, before you move on, and stays silent when 
 ## Privacy and teams
 
 - **What it stores**, in `.checker/` inside each project: your prompts, Claude's replies, every tool call and its output, and a snapshot of your code at each request and each reply. `.checker/` ignores itself in git.
+- **`/tattle:audit` only reads.** It reads Claude Code's session logs (`~/.claude/projects/`) when you run it, prints its result, and stores nothing.
 - **Never on the network.** The plugin and `tattle check` make no network requests. Only the opt-in `tattle verify` may pull a Docker image, and download dependencies if you pass `--allow-install`.
 - **Redaction has limits.** Known secret formats (cloud and API keys, tokens, private keys, passwords in URLs and assignments) are replaced in the transcript and hook events, along with your home folder and user name. **Code snapshots are stored as they are**, minus `node_modules`, build output, `.env*`, `*.pem`, `*.key`, SSH keys, files over 1 MB and anything your `.gitignore` excludes. A secret hardcoded in a tracked file is in the snapshot.
 - **Keep it out of copies.** Add `.checker/` to `.dockerignore` and to any sync or backup tool's exclusions.
