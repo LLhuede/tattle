@@ -1,0 +1,8 @@
+{
+  "name": "tattle",
+  "owner": { "name": "LLhuede" },
+  "description": "tattle: catch your AI agent's hallucinations.",
+  "plugins": [
+    { "name": "tattle", "source": "./plugin", "description": "Catches your AI agent's hallucinations, in plain words." }
+  ]
+}
