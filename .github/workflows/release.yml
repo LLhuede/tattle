@@ -28,7 +28,7 @@ jobs:
       fail-fast: true
       matrix:
         include:
-          - os: macos-14
+          - os: macos-15
             name: tattle-darwin-universal
           # Oldest supported Ubuntu runner: an older glibc runs on more Linux systems.
           - os: ubuntu-22.04
