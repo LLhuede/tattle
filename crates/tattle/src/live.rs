@@ -178,6 +178,9 @@ pub fn report(project: &Path, session: Option<&str>) -> Result<String> {
     let Some(session) = session else {
         return Ok("tattle hasn't recorded anything in this folder yet. It starts with your next request to Claude.\n".to_string());
     };
+    if !checker.join("sessions").join(&session).join("events.jsonl").is_file() {
+        return Ok(not_recorded(&project, &checker, &HookEnv::from_process()));
+    }
     let mut rec = checks::Recording::load_live(&project, &session)?;
     // The request that asked for this report is still running.
     rec.drop_open_turn();
@@ -192,4 +195,39 @@ pub fn report(project: &Path, session: Option<&str>) -> Result<String> {
     let config = Config::load(&project);
     let settings = plain::ReportSettings { muted: config.mute, tell_claude: config.tell_claude, command_prefix: prefix };
     Ok(plain::report(&found.findings, &earlier, &requests, &settings))
+}
+
+/// Why this session has no recording, in plain words (the report's answer
+/// instead of a missing-file error).
+fn not_recorded(project: &Path, checker: &Path, env: &HookEnv) -> String {
+    use capture::hook::Skip;
+    let mut text = String::from("tattle didn't record this session");
+    match capture::hook::skip_reason(project, env) {
+        Some(Skip::Home) => text.push_str(&format!(
+            ": Claude Code was started in {}, not in a project folder, and tattle stays out of the home folder and the top of the drive. \
+             Start Claude Code inside the project instead (`cd` into its folder, then `claude`).\n",
+            project.display()
+        )),
+        Some(Skip::OwnHooks) => text.push_str(
+            ": this project runs tattle through hooks in its own `.claude/settings.json`, so the plugin leaves recording to them, and they didn't record it. \
+             Check that the command those hooks run exists, or remove them so the plugin records.\n",
+        ),
+        Some(Skip::NoGit) => text.push_str(": it needs git. Install Apple's developer tools (`xcode-select --install`), then restart Claude Code.\n"),
+        Some(Skip::Missing) | None => {
+            text.push_str(
+                ". Its hooks load when Claude Code starts, so if you installed or turned on the plugin during this session, restart Claude Code. \
+                 `/hooks` lists the hooks Claude Code loaded; tattle's run `scripts/tattle hook`.\n",
+            );
+            if let Some(err) = last_error(checker) {
+                text.push_str(&format!("Its last error (in .checker/errors.log): {err}\n"));
+            }
+        }
+    }
+    text
+}
+
+fn last_error(checker: &Path) -> Option<String> {
+    let log = std::fs::read_to_string(checker.join("errors.log")).ok()?;
+    let line: Value = serde_json::from_str(log.lines().last()?).ok()?;
+    line["error"].as_str().map(str::to_string)
 }

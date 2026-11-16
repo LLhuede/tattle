@@ -74,6 +74,9 @@ Run `tattle score` after any checker change (`cargo test` also enforces it when 
 ## Progress log
 Newest first.
 
+### 2026-11-16 (cloud: report for unrecorded sessions)
+- `/tattle:report` on a session tattle didn't record (Claude Code started in the home folder, the plugin installed mid-session, a project with its own tattle hooks, macOS without git) now says why in plain words instead of failing on a missing file. `capture::hook::skip_reason` shared with the hooks; test in `tests/plugin.rs`.
+
 ### 2026-11-04 → 11-05 (build session 19 continued, cloud: release form, live Windows use, CI, 0.9.0)
 - Release form: README at the root ("catch your AI agent's hallucinations", two real screenshots, blind-first headline, how results stay deterministic), SECURITY, CONTRIBUTING, MIT; private-only material out, checked by 7 privacy reviews of the `git archive` tree (the last two clean); maintainer-only files are `export-ignore`.
 - Live Windows sessions (RESULTS §3r): 2 true alerts; 1 false (pasted code read as phantom references), fixed with tests.

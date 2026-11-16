@@ -85,15 +85,33 @@ pub fn plugin_skip(input: &[u8], env: &HookEnv) -> bool {
     }
     let payload: Value = serde_json::from_slice(input).unwrap_or(Value::Null);
     let project = env.project_dir.clone().or_else(|| payload["cwd"].as_str().map(PathBuf::from)).unwrap_or_else(|| env.cwd.clone());
-    let Ok(project) = project.canonicalize() else { return true };
+    skip_reason(&project, env).is_some()
+}
+
+/// Why the plugin doesn't record in a folder, if it doesn't.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Skip {
+    /// The folder doesn't exist (or can't be resolved).
+    Missing,
+    /// The home folder or the filesystem root.
+    Home,
+    /// The project records itself through its own hooks.
+    OwnHooks,
+    /// macOS without the developer tools (no git).
+    NoGit,
+}
+
+/// Why the plugin stays out of `project`, or `None` when it records there.
+pub fn skip_reason(project: &Path, env: &HookEnv) -> Option<Skip> {
+    let Ok(project) = project.canonicalize() else { return Some(Skip::Missing) };
     let is_home = env.home.iter().cloned().chain(crate::fsx::home_dirs()).any(|h| h.canonicalize().is_ok_and(|h| h == project));
     if project.parent().is_none() || is_home {
-        return true;
+        return Some(Skip::Home);
     }
     if env.from_plugin && crate::sandbox::has_recorder_hooks(&project) {
-        return true;
+        return Some(Skip::OwnHooks);
     }
-    !git_available()
+    (!git_available()).then_some(Skip::NoGit)
 }
 
 #[cfg(target_os = "macos")]
