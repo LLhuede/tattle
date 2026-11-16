@@ -239,6 +239,35 @@ fn report_before_anything_is_recorded() {
     assert!(f.report().contains("hasn't recorded anything"));
 }
 
+/// `/tattle:report` names its session. When that session wasn't recorded
+/// (Claude Code started in the home folder, or the plugin installed after it
+/// started), the report says why in plain words rather than failing on a
+/// missing file.
+#[test]
+fn report_for_an_unrecorded_session_says_why() {
+    let f = Fixture::new();
+    let run = |project: &Path| {
+        let out = Command::new(CV)
+            .args(["report", "--session", "never-recorded", "--project"])
+            .arg(project)
+            .env("HOME", &f.home)
+            .env("USERPROFILE", &f.home)
+            .env("TATTLE_PLUGIN", "1")
+            .env_remove("TATTLE_SOURCE")
+            .output()
+            .unwrap();
+        assert!(out.status.success(), "{}", String::from_utf8_lossy(&out.stderr));
+        String::from_utf8(out.stdout).unwrap()
+    };
+    let home = run(&f.home);
+    assert!(home.contains("didn't record this session") && home.contains("not in a project folder"), "{home}");
+    let project = run(&f.project);
+    assert!(project.contains("didn't record this session") && project.contains("restart Claude Code"), "{project}");
+    // Recorded sessions still get their report.
+    f.prompt("add a discount");
+    assert!(!f.report().contains("didn't record"));
+}
+
 /// The plugin's hooks and this repo's development hooks cover exactly the
 /// events the recorder expects, each calling the launcher.
 #[test]

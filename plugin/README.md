@@ -33,7 +33,8 @@ tattle checks what it can see: test runs, what Claude said, and the code changes
 
 ## Good to know
 
-- tattle doesn't record when Claude Code is opened in your home folder rather than a project.
+- tattle doesn't record when Claude Code is opened in your home folder rather than a project. In a terminal, `cd` into the project before typing `claude`.
+- Hooks load when Claude Code starts: after installing tattle, restart any Claude Code that was already open.
 - It keeps the last 30 sessions per project and deletes anything older than 30 days.
 - Secrets are replaced before anything is written. To delete what tattle recorded in a project, delete its `.checker` folder.
 - To turn it off: `/plugin`, then the **Installed** tab, then select tattle and disable it.
